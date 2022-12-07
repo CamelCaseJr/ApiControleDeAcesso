@@ -29,6 +29,7 @@ public class Pessoa {
     private Setor setor;
 
 
+
     @OneToOne( fetch = FetchType.LAZY, mappedBy = "militares")
     private Militar militar;
     
