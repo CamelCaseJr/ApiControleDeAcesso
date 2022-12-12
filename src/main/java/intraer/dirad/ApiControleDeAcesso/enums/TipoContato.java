@@ -2,6 +2,8 @@ package intraer.dirad.ApiControleDeAcesso.enums;
 
 import javax.print.DocFlavor.STRING;
 
+import lombok.Getter;
+@Getter
 public enum TipoContato {
   CELULAR(1),
   TELEFONEFIXO(2),

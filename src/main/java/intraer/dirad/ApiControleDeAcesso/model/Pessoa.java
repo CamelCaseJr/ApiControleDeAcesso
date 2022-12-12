@@ -12,21 +12,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
+@Table(name = "pessoas")
 @Data
 public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "varchar(36)")
     private UUID id;
 
     private String nome;
     private String cpf;
     private Contato contato;
     private String sexo;
-    private Setor setor;
+    private secao setor;
 
 
 
