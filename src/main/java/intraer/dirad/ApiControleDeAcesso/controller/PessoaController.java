@@ -24,15 +24,19 @@ public class PessoaController {
     }
 
     @GetMapping("/bustarTodos")
-    public ResponseEntity<List<Pessoa>> getAllPessoas() {
+    public ResponseEntity<List<PessoaDto>> getAllPessoas() {
         
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(PessoaDto.ConverterPessoa(PessoaService.findAll()));
+            .body(PessoaDto.ConverterPessoa(PessoaService.findAll()));    
+    }
+
+    public ResponseEntity<PessoaDto> savePessoa() {
         
     }
 
-    
+
+
 
 
 }

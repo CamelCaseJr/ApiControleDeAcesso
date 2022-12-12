@@ -22,7 +22,7 @@ public class PessoaDto {
         this.sexo = pessoa.getSexo();
         this.setor = pessoa.getSetor();
         this.militar = pessoa.getMilitar();
-        this.dependentes = pessoa.getDependentes();
+        this.dependetes = pessoa.getDependentes();
     }
 
     public static List<PessoaDto> ConverterPessoa(List<Pessoa> pessoas) {
