@@ -19,8 +19,8 @@ import lombok.Data;
 public class Contato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "varchar(36)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//@Column(columnDefinition = "varchar(36)")
     private UUID id;
     
     @Enumerated(EnumType.STRING)

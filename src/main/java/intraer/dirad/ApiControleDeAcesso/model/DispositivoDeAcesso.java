@@ -18,8 +18,8 @@ import lombok.Data;
 public class DispositivoDeAcesso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "varchar(36)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//@Column(columnDefinition = "varchar(36)")
     private UUID id;
     
     private String nome;

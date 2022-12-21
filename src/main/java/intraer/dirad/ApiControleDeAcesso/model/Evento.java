@@ -4,14 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.enums.TipoDeIdentificacao;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -20,11 +13,15 @@ import lombok.Data;
 public class Evento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "varchar(36)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//@Column(columnDefinition = "varchar(36)")
     private UUID id;
     
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+    @ManyToOne
+    @JoinColumn(name = "visita_id")
     private Visita visita;
     private LocalDateTime entrada;
     private LocalDateTime saida;

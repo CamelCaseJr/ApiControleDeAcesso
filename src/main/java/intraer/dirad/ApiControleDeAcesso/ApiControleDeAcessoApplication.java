@@ -12,7 +12,6 @@ public class ApiControleDeAcessoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiControleDeAcessoApplication.class, args);
 	
-	
 	}
 
 

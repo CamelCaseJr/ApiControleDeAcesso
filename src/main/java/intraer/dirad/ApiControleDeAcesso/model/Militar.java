@@ -2,12 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.model;
 
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -17,13 +12,18 @@ public class Militar {
 
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "varchar(36)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//@Column(columnDefinition = "varchar(36)")
     private UUID id;
     
     private String saram;
+
+    @OneToOne
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
     private String nomeDeGuerra;
+    @OneToOne
+    @JoinColumn(name = "om_id")
     private OrganizacaoMilitar om;
     private String posto;
     

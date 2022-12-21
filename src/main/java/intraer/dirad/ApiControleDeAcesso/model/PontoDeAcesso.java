@@ -21,14 +21,16 @@ public class PontoDeAcesso {
 
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "varchar(36)")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Column(columnDefinition = "varchar(36)")
     private UUID id;
     
     private String nome;
     
-    private secao secao;
-    
+    @OneToMany
+    private List<secao> secao = new ArrayList<>();
+
+    @OneToMany
     private List<DispositivoDeAcesso> dispositivosDeAcesso = new ArrayList<>();
     
     @OneToMany
