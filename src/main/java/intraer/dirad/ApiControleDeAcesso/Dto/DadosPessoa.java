@@ -1,6 +1,7 @@
 package intraer.dirad.ApiControleDeAcesso.Dto;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 
@@ -11,8 +12,9 @@ import intraer.dirad.ApiControleDeAcesso.model.Militar;
 import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.model.secao;
 
-public class PessoaDto {
+public class DadosPessoa {
 
+    private UUID id;
     private String nome;
     private String cpf;
     private Contato contato;
@@ -22,7 +24,8 @@ public class PessoaDto {
     
     private List<Dependente> dependentes;
 
-    public PessoaDto(Pessoa pessoa){
+    public DadosPessoa(Pessoa pessoa){
+        this.id = pessoa.getId();
         this.nome = pessoa.getNome();
         this.cpf = pessoa.getCpf();
         this.contato = pessoa.getContato();
@@ -31,12 +34,12 @@ public class PessoaDto {
         this.militar = pessoa.getMilitar();
     }
 
-    public static List<PessoaDto> ConverterPessoa(List<Pessoa> pessoas) {
-        return pessoas.stream().map(PessoaDto::new).toList();
+    public static List<DadosPessoa> ConverterPessoa(List<Pessoa> pessoas) {
+        return pessoas.stream().map(DadosPessoa::new).toList();
     }
-    public static PessoaDto ConverterPessoa(Pessoa pessoa) {
+    public static DadosPessoa ConverterPessoa(Pessoa pessoa) {
     
-        PessoaDto pessoaDto = new PessoaDto(pessoa);
+        DadosPessoa pessoaDto = new DadosPessoa(pessoa);
         return pessoaDto;
     }
 

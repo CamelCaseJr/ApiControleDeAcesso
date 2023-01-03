@@ -27,7 +27,7 @@ public class Pessoa {
     @OneToMany
     private List<secao> setor;
 
-
+    
 
     @OneToOne( fetch = FetchType.LAZY)
     private Militar militar;

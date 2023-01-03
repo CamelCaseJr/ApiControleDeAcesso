@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import intraer.dirad.ApiControleDeAcesso.Dto.PessoaDto;
-import intraer.dirad.ApiControleDeAcesso.form.PessoaForm;
+import intraer.dirad.ApiControleDeAcesso.Dto.DadosCadastroPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dto.DadosPessoa;
 import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.service.PessoaService;
 import jakarta.validation.Valid;
@@ -34,46 +34,46 @@ public class PessoaController {
         this.pessoaService = pessoaService;
     }
 
-    @GetMapping("/listarPessoas")
-    public ResponseEntity<List<PessoaDto>> getAllPessoas() {
+    @GetMapping()
+    public ResponseEntity<List<DadosPessoa>> getAllPessoas() {
         
         return ResponseEntity
         .status(HttpStatus.OK)
-        .body(PessoaDto.ConverterPessoa(pessoaService.findAll()));
+        .body(DadosPessoa.ConverterPessoa(pessoaService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PessoaDto> getPessoaId(
+    public ResponseEntity<DadosPessoa> getPessoaId(
         @RequestParam("id") UUID id
     ){
         optionalPessoa = pessoaService.findById(id);
         return optionalPessoa.map(pessoa -> ResponseEntity
         .status(HttpStatus.OK)
-        .body(PessoaDto.ConverterPessoa(pessoaService.findById(id).get())))
+        .body(DadosPessoa.ConverterPessoa(pessoaService.findById(id).get())))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     
-    @PostMapping("/salvar")
-    public ResponseEntity<PessoaDto> salvar(
-        @RequestBody @Valid PessoaForm pessoaForm
+    @PostMapping()
+    public ResponseEntity<DadosPessoa> cadastrar(
+        @RequestBody @Valid DadosCadastroPessoa pessoaForm
     ){
         return ResponseEntity
         .status(HttpStatus.OK)
-        .body(PessoaDto.ConverterPessoa(pessoaService.salvar(pessoaForm)));
+        .body(DadosPessoa.ConverterPessoa(pessoaService.salvar(pessoaForm)));
         
     }
 
-    @PutMapping("/atualizar")
-    public ResponseEntity<PessoaDto> atualizar(
-        @RequestBody @Valid PessoaForm pessoaForm
+    @PutMapping()
+    public ResponseEntity<DadosPessoa> atualizar(
+        @RequestBody @Valid DadosCadastroPessoa pessoaForm
     ){
         return ResponseEntity
         .status(HttpStatus.OK)
-        .body(PessoaDto.ConverterPessoa(pessoaService.salvar(pessoaForm)));
+        .body(DadosPessoa.ConverterPessoa(pessoaService.salvar(pessoaForm)));
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(
         @RequestParam ("id") UUID id
     ) {
