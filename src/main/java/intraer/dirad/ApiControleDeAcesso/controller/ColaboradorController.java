@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import intraer.dirad.ApiControleDeAcesso.Dto.DadosAtualizacaoColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dto.DadosCadastroColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dto.DadosColaborador;
+import intraer.dirad.ApiControleDeAcesso.model.Colaborador;
 import intraer.dirad.ApiControleDeAcesso.service.ColaboradorService;
 import intraer.dirad.ApiControleDeAcesso.service.EmpresaService;
 import intraer.dirad.ApiControleDeAcesso.service.PessoaService;
+import lombok.var;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,9 +50,12 @@ public class ColaboradorController {
     @Transactional
     public ResponseEntity<DadosColaborador> cadastrar(
         @PathVariable UUID pessoaId,
-        @PathVariable UUID empresaId
+        @PathVariable UUID empresaId,
+        UriComponentsBuilder uBuilder
     ) {
-        return ResponseEntity.ok().body(colaboradorService.salvar(pessoaId,empresaId));
+        DadosColaborador colaborador = colaboradorService.salvar(pessoaId,empresaId);
+        var uri = uBuilder.path("/medicos/{id}").buildAndExpand(colaborador.id()).toUri();
+        return ResponseEntity.created(uri).body(colaborador);
         
     }
 
@@ -62,8 +68,9 @@ public class ColaboradorController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    public void excluir(@PathVariable UUID id) {
+    public ResponseEntity excluir(@PathVariable UUID id) {
         colaboradorService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 
