@@ -1,4 +1,4 @@
-package intraer.dirad.ApiControleDeAcesso.Dto;
+package intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa;
 
 import java.util.List;
 

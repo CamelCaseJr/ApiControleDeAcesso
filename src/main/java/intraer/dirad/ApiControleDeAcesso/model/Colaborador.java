@@ -2,7 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.model;
 
 import java.util.UUID;
 
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
 import jakarta.persistence.*;
 import lombok.Data;
 

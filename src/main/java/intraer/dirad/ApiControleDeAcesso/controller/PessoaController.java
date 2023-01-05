@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosCadastroPessoa;
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
 import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.service.PessoaService;
 import jakarta.validation.Valid;

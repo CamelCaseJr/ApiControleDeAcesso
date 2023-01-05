@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosCadastroPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
 import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.repository.PessoaRepository;
 import jakarta.validation.Valid;

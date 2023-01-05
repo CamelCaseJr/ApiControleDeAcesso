@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosAtualizacaoColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosCadastroColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dto.DadosColaborador;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
 import intraer.dirad.ApiControleDeAcesso.model.Colaborador;
 import intraer.dirad.ApiControleDeAcesso.service.ColaboradorService;
 import intraer.dirad.ApiControleDeAcesso.service.EmpresaService;
 import intraer.dirad.ApiControleDeAcesso.service.PessoaService;
+import jakarta.validation.Valid;
 import lombok.var;
 
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,23 +46,28 @@ public class ColaboradorController {
     public ResponseEntity<List<DadosColaborador>> listarTodos() {
         return ResponseEntity.ok().body(colaboradorService.findAll());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosColaborador> contatoId(
+        @PathVariable UUID id
+    ) {
+        return ResponseEntity.ok().body(colaboradorService.findById(id));
+    }
 
     @PostMapping
     @Transactional
     public ResponseEntity<DadosColaborador> cadastrar(
-        @PathVariable UUID pessoaId,
-        @PathVariable UUID empresaId,
-        UriComponentsBuilder uBuilder
+        @RequestBody @Valid DadosCadastroColaborador dados,
+        UriComponentsBuilder uriBuilder
     ) {
-        DadosColaborador colaborador = colaboradorService.salvar(pessoaId,empresaId);
-        var uri = uBuilder.path("/medicos/{id}").buildAndExpand(colaborador.id()).toUri();
+        DadosColaborador colaborador = colaboradorService.salvar(dados);
+        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.id()).toUri();
         return ResponseEntity.created(uri).body(colaborador);
         
     }
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<DadosColaborador> atualizar(@PathVariable UUID id, @RequestBody DadosAtualizacaoColaborador dado) {
+    public ResponseEntity<DadosColaborador> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoColaborador dado) {
     
         return ResponseEntity.ok().body(colaboradorService.atualizar(id,dado));
     }
