@@ -44,8 +44,7 @@ public class ContatoController {
     @PostMapping
     @Transactional
     public ResponseEntity<DadosContato> cadastrar(
-        @RequestBody @Valid DadosCadastroContato dados,
-        UriComponentsBuilder uriBuilder
+        @RequestBody @Valid DadosCadastroContato dados, UriComponentsBuilder uriBuilder
     ) {
         DadosContato contato = contatoService.salvar(dados);
         var uri = uriBuilder.path("/contato/{id}").buildAndExpand(contato.id()).toUri();

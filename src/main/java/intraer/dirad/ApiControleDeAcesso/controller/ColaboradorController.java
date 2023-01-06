@@ -56,8 +56,7 @@ public class ColaboradorController {
     @PostMapping
     @Transactional
     public ResponseEntity<DadosColaborador> cadastrar(
-        @RequestBody @Valid DadosCadastroColaborador dados,
-        UriComponentsBuilder uriBuilder
+        @RequestBody @Valid DadosCadastroColaborador dados, UriComponentsBuilder uriBuilder
     ) {
         DadosColaborador colaborador = colaboradorService.salvar(dados);
         var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.id()).toUri();

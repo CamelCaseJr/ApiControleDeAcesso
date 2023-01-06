@@ -3,6 +3,8 @@ package intraer.dirad.ApiControleDeAcesso.service;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
@@ -10,6 +12,7 @@ import intraer.dirad.ApiControleDeAcesso.model.Colaborador;
 import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
 import jakarta.validation.Valid;
 
+@Service
 public class ColaboradorService {
 
 
