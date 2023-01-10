@@ -23,7 +23,7 @@ import intraer.dirad.ApiControleDeAcesso.service.PessoaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/pessoas")
 public class PessoaController {
 
 

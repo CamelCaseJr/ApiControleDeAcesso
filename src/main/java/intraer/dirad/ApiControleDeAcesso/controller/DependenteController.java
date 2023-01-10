@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.var;
 
 @RestController
-@RequestMapping("/dependente")
+@RequestMapping("/dependentes")
 public class DependenteController {
     private final DependenteService dependenteService;
 

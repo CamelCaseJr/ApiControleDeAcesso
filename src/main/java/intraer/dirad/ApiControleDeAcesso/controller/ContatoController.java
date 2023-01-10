@@ -22,7 +22,7 @@ import intraer.dirad.ApiControleDeAcesso.service.ContatoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/contato")
+@RequestMapping("/contatos")
 public class ContatoController {
     private final ContatoService contatoService;
 

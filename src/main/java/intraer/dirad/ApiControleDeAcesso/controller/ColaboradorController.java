@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/colaborador")
+@RequestMapping("/colaboradores")
 public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;

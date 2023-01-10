@@ -22,7 +22,7 @@ import intraer.dirad.ApiControleDeAcesso.service.DispositivoDeAcessoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/dispositivoDeAcesso")
+@RequestMapping("/dispositivoDeAcessos")
 public class DispositivoDeAcessoController {
     private final DispositivoDeAcessoService dispositivoDeAcessoService;
     
