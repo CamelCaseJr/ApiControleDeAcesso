@@ -2,11 +2,11 @@ package intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa;
 
 import java.util.List;
 
-import intraer.dirad.ApiControleDeAcesso.model.Contato;
-import intraer.dirad.ApiControleDeAcesso.model.Dependente;
-import intraer.dirad.ApiControleDeAcesso.model.Militar;
-import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
-import intraer.dirad.ApiControleDeAcesso.model.secao;
+import intraer.dirad.ApiControleDeAcesso.models.Contato;
+import intraer.dirad.ApiControleDeAcesso.models.Dependente;
+import intraer.dirad.ApiControleDeAcesso.models.Militar;
+import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.models.Secao;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,7 +21,7 @@ public record DadosCadastroPessoa (
     @NotNull @NotEmpty
     String sexo,
     @NotNull @NotEmpty
-    List<secao> setor,
+    List<Secao> setor,
     @NotNull @NotEmpty
     Militar militar,
     List<Dependente> dependentes

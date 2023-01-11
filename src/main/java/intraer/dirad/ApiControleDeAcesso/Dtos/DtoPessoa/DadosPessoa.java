@@ -6,11 +6,11 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 
 import ch.qos.logback.core.joran.util.beans.BeanUtil;
-import intraer.dirad.ApiControleDeAcesso.model.Contato;
-import intraer.dirad.ApiControleDeAcesso.model.Dependente;
-import intraer.dirad.ApiControleDeAcesso.model.Militar;
-import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
-import intraer.dirad.ApiControleDeAcesso.model.secao;
+import intraer.dirad.ApiControleDeAcesso.models.Contato;
+import intraer.dirad.ApiControleDeAcesso.models.Dependente;
+import intraer.dirad.ApiControleDeAcesso.models.Militar;
+import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.models.Secao;
 
 public class DadosPessoa {
 
@@ -19,7 +19,7 @@ public class DadosPessoa {
     private String cpf;
     private Contato contato;
     private String sexo;
-    private List<secao> setor;
+    private List<Secao> setor;
     private Militar militar;
     
     private List<Dependente> dependentes;

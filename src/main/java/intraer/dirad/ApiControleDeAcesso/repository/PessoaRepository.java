@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID>{

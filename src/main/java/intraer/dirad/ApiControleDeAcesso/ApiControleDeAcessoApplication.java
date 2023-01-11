@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import intraer.dirad.ApiControleDeAcesso.model.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
 
 @SpringBootApplication
 public class ApiControleDeAcessoApplication {
