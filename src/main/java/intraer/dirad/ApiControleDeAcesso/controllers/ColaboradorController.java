@@ -16,12 +16,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
-import intraer.dirad.ApiControleDeAcesso.models.Colaborador;
 import intraer.dirad.ApiControleDeAcesso.services.ColaboradorService;
 import intraer.dirad.ApiControleDeAcesso.services.EmpresaService;
 import intraer.dirad.ApiControleDeAcesso.services.PessoaService;
 import jakarta.validation.Valid;
-import lombok.var;
+
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
