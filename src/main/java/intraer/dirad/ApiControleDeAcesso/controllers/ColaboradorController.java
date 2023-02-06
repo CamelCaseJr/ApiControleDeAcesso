@@ -65,9 +65,12 @@ public class ColaboradorController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<DadosColaborador> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoColaborador dado) {
-    
-        return ResponseEntity.ok().body(colaboradorService.atualizar(id,dado));
+    public ResponseEntity<DadosColaborador> atualizar(
+            @PathVariable UUID id,
+            @RequestBody @Valid DadosAtualizacaoColaborador dado,
+            UriComponentsBuilder uriBuilder) {
+        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(id).toUri();
+        return ResponseEntity.created(uri).body(colaboradorService.atualizar(id,dado));
     }
 
     @DeleteMapping(value="/{id}")
