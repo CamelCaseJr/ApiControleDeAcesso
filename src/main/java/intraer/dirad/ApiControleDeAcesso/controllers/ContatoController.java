@@ -54,9 +54,13 @@ public class ContatoController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<DadosContato> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoContato dado) {
-    
-        return ResponseEntity.ok().body(ContatoService.atualizar(id,dado));
+    public ResponseEntity<DadosContato> atualizar(
+            @PathVariable UUID id,
+            @RequestBody @Valid DadosAtualizacaoContato dado,
+            UriComponentsBuilder uriBuilder) {
+
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(id).toUri();
+        return ResponseEntity.created(uri).body(contatoService.atualizar(id,dado));
     }
 
     @DeleteMapping(value="/{id}")

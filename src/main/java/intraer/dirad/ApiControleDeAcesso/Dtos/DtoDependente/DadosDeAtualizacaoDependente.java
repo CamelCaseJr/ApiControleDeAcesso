@@ -1,5 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente;
 
-public record DadosDeAtualizacaoDependente() {
+import java.util.UUID;
+
+public record DadosDeAtualizacaoDependente(
+        UUID id
+) {
     
 }

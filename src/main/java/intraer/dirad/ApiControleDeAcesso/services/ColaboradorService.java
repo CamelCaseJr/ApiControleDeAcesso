@@ -45,15 +45,13 @@ public class ColaboradorService {
     }
 
     public DadosColaborador atualizar(UUID id, @Valid DadosAtualizacaoColaborador dado) {
-        try {
-            var colaboradorOpitinal = repository.findById(id);
-            Colaborador colaborador = colaboradorOpitinal
-                    .orElseThrow(() -> new EntityNotFoundException("People not found"));
-            repository.save(colaborador);
-            return mapper.map(colaborador, DadosColaborador.class);
-        }catch (EntityNotFoundException err){
-            throw new EntityNotFoundException(err.getMessage());
-        }
+
+        Colaborador colaborador = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("colaborador not found"));
+        mapper.map(dado, colaborador);
+        repository.save(colaborador);
+        return mapper.map(colaborador, DadosColaborador.class);
+
 
     }
 

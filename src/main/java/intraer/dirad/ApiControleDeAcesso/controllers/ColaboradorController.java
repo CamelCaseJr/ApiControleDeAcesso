@@ -1,46 +1,26 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
 import intraer.dirad.ApiControleDeAcesso.services.ColaboradorService;
-import intraer.dirad.ApiControleDeAcesso.services.EmpresaService;
-import intraer.dirad.ApiControleDeAcesso.services.PessoaService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
+import java.util.UUID;
 
 
 @RestController
 @RequestMapping("/colaboradores")
+@AllArgsConstructor
 public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;
-    private final PessoaService pessoaService;
-    private final EmpresaService empresaService;
-
-    public ColaboradorController(ColaboradorService colaboradorService, PessoaService pessoaService,
-            EmpresaService empresaService) {
-        this.colaboradorService = colaboradorService;
-        this.pessoaService = pessoaService;
-        this.empresaService = empresaService;
-    }
-
     @GetMapping
     public ResponseEntity<List<DadosColaborador>> listarTodos() {
         return ResponseEntity.ok().body(colaboradorService.findAll());
