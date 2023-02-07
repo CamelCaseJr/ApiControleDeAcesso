@@ -45,7 +45,7 @@ public class DependenteService {
             throw new EntityNotFoundException(err.getMessage());
         }
     }
-
+    
     public DadosDependente atualizar(UUID id, @Valid DadosDeAtualizacaoDependente dado) {
         Dependente dependente = repository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("dependente not found"));
