@@ -31,6 +31,7 @@ public class PessoaController {
     Optional<Pessoa> optionalPessoa;
 
     public PessoaController(PessoaService pessoaService) {
+        System.out.println();
         this.pessoaService = pessoaService;
     }
 
