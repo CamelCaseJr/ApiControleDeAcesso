@@ -51,6 +51,9 @@ public class MilitarService {
     }
 
     public void delete(UUID id) {
+        Militar militar = repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("militar não encontrado"));
+        repository.delete(militar);
     }
     
 }

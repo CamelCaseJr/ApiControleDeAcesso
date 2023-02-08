@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
 import intraer.dirad.ApiControleDeAcesso.mappers.ColaboradorMapper;
 import intraer.dirad.ApiControleDeAcesso.repository.ColaboradorRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +25,6 @@ import jakarta.validation.Valid;
 public class ColaboradorService {
     private final ColaboradorRepository repository;
     private final ModelMapper mapper;
-    private final ColaboradorMapper cMapper;
 
     public List<DadosColaborador> findAll() {
         var colaboradores = repository.findAll();
@@ -46,10 +46,11 @@ public class ColaboradorService {
 
     public DadosColaborador atualizar(UUID id, @Valid DadosAtualizacaoColaborador dado) {
 
-        Colaborador colaborador = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("colaborador not found"));
-        mapper.map(dado, colaborador);
-        repository.save(colaborador);
+        repository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
+        Colaborador colaborador = mapper.map(dado,Colaborador.class);
+        colaborador.setId(id);
+        colaborador = repository.save(colaborador);
         return mapper.map(colaborador, DadosColaborador.class);
 
 

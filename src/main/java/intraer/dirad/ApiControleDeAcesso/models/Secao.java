@@ -22,6 +22,10 @@ public class Secao {
     private List<Responsavel> responsaveis = new ArrayList<>();
 
     @OneToMany
-    private List<Efetivo> efetivo = new ArrayList<>();
+    private List<Pessoa> pessoas = new ArrayList<>();
+
+    public void setPessoas(Pessoa pessoa){
+        pessoas.add(pessoa);
+    }
 
 }
