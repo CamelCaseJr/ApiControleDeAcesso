@@ -1,21 +1,19 @@
 package intraer.dirad.ApiControleDeAcesso.services;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import intraer.dirad.ApiControleDeAcesso.models.Militar;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar.DadosAtualizacaoOrganizacaoMilitar;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar.DadosOrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.models.OrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.repository.OMRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar.DadosAtualizacaoOrganizacaoMilitar;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar.DadosOrganizacaoMilitar;
-import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

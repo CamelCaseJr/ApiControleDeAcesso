@@ -46,7 +46,7 @@ public class PontoDeAcessoController {
         @RequestBody @Valid DadosCadastroPontoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var pontoDeAcesso = pontoDeAcessoService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(pontoDeAcesso.id()).toUri();
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(pontoDeAcesso.getId()).toUri();
         return ResponseEntity.created(uri).body(pontoDeAcesso);
         
     }

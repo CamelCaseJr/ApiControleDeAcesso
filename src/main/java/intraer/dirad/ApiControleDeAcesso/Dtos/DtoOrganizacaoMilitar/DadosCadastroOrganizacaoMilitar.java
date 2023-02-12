@@ -1,9 +1,11 @@
 package intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar;
 
-public record DadosCadastroOrganizacaoMilitar(
-    String nome,
-    String sigla
+import lombok.Data;
 
-) {
-    
+import java.util.UUID;
+@Data
+public class DadosCadastroOrganizacaoMilitar{
+    UUID id;
+    String nome;
+    String sigla;
 }

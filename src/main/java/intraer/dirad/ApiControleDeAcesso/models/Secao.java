@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
+
 public class Secao {
 
     @Id
@@ -21,7 +23,7 @@ public class Secao {
     @ManyToMany
     private List<Responsavel> responsaveis = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Pessoa> pessoas = new ArrayList<>();
 
     public void setPessoas(Pessoa pessoa){

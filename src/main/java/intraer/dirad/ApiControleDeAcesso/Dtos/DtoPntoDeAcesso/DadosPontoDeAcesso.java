@@ -6,13 +6,14 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.models.DispositivoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.models.Secao;
 import intraer.dirad.ApiControleDeAcesso.models.PermissaoGerenteLocalAcesso;
+import lombok.Data;
 
-public record DadosPontoDeAcesso(
-    UUID id,
-    String nome,
-    List<Secao> secao,
-    List<DispositivoDeAcesso> dispositivosDeAcesso,
-    List<PermissaoGerenteLocalAcesso> permissoesGerentesLocaaisAcessos
-) {
+@Data
+public class DadosPontoDeAcesso {
+    UUID id;
+    String nome;
+    List<Secao> secao;
+    List<DispositivoDeAcesso> dispositivosDeAcesso;
+    List<PermissaoGerenteLocalAcesso> permissoesGerentesLocaaisAcessos;
     
 }

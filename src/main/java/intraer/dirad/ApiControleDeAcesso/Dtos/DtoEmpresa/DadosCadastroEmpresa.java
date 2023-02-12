@@ -1,5 +1,8 @@
 package intraer.dirad.ApiControleDeAcesso.Dtos.DtoEmpresa;
 
-public record DadosCadastroEmpresa (){
+import lombok.Data;
+
+@Data
+public class DadosCadastroEmpresa {
 
 }

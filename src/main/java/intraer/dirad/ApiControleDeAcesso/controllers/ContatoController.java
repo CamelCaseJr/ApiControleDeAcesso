@@ -47,7 +47,7 @@ public class ContatoController {
         @RequestBody @Valid DadosCadastroContato dados, UriComponentsBuilder uriBuilder
     ) {
         DadosContato contato = contatoService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(contato.id()).toUri();
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(contato.getId()).toUri();
         return ResponseEntity.created(uri).body(contato);
         
     }

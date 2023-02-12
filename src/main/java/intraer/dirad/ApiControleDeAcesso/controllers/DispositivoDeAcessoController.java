@@ -46,7 +46,7 @@ public class DispositivoDeAcessoController {
         @RequestBody @Valid DadosCadastroDispositivoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var dependente = dispositivoDeAcessoService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(dependente.id()).toUri();
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(dependente.getId()).toUri();
         return ResponseEntity.created(uri).body(dependente);
         
     }

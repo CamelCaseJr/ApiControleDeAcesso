@@ -5,12 +5,13 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEmpresa.DadosCadastroEmpresa;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
-public record DadosAtualizacaoColaborador (
-    UUID id,
+@Data
+public class DadosAtualizacaoColaborador {
+    UUID id;
     @NotBlank(message = "field cannot be empty")
-    DadosCadastroPessoa pessoa,
+    DadosCadastroPessoa pessoa;
     @NotBlank(message = "field cannot be empty")
-    DadosCadastroEmpresa empresa
-
-){}
+    DadosCadastroEmpresa empresa;
+}

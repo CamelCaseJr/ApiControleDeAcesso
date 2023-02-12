@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import intraer.dirad.ApiControleDeAcesso.enums.TipoDeIdentificacao;
 import jakarta.persistence.*;
 import lombok.Data;

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Data
+
 public class Pessoa {
 
     @Id
@@ -18,21 +21,26 @@ public class Pessoa {
 
     private String nome;
     private String cpf;
-    @ManyToOne
-    @JoinColumn(name = "contato_id")
+    @ManyToOne()
     private Contato contato;
     private String sexo;
 
 
-    @OneToMany
+    @OneToMany()
     private List<Secao> setor;
 
     
 
-    @OneToOne( fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Militar militar;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Dependente> dependentes = new ArrayList<>();
 
+    public void setMilitar(Militar militar) {
+        this.militar = militar;
+        militar.setPessoa(this);
+    }
 }

@@ -2,13 +2,15 @@ package intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar;
 
 import intraer.dirad.ApiControleDeAcesso.models.OrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
+import lombok.Data;
 
-public record DadosCadastroMilitar(
-    String saram,
-    Pessoa pessoa,
-    String nomeDeGuerra,
-    OrganizacaoMilitar om,
-    String posto
-) {
+import java.util.UUID;
+@Data
+public class DadosCadastroMilitar {
+    private String saram;
+    private Pessoa pessoa;
+    private String nomeDeGuerra;
+    private OrganizacaoMilitar om;
+    private String posto;
     
 }

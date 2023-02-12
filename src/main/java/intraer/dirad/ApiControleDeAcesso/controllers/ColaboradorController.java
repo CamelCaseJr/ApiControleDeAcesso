@@ -38,7 +38,7 @@ public class ColaboradorController {
         @RequestBody @Valid DadosCadastroColaborador dados, UriComponentsBuilder uriBuilder
     ) {
         DadosColaborador colaborador = colaboradorService.salvar(dados);
-        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.id()).toUri();
+        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.getId()).toUri();
         return ResponseEntity.created(uri).body(colaborador);
         
     }

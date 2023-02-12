@@ -46,7 +46,7 @@ public class PermissaoGerenteLocalAcessoController {
         @RequestBody @Valid DadosCadastroGerenteLocalAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = permissaoGerenteLocalService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.id()).toUri();
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }

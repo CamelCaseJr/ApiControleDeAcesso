@@ -1,9 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.Dtos.DtoDispositivosDeacesso;
 
-import java.util.UUID;
+import lombok.Data;
 
-public record DadosDispositivosDeAcesso(
-    UUID id
-) {
-    
+import java.util.UUID;
+@Data
+public class DadosDispositivosDeAcesso {
+    UUID id;
 }

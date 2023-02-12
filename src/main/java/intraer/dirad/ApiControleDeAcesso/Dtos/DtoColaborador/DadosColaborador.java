@@ -4,11 +4,12 @@ import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEmpresa.DadosEmpresa;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
+import lombok.Data;
 
-public record DadosColaborador (
-    UUID id,
-    DadosPessoa pessoa,
-    DadosEmpresa empresa
-) {
+@Data
+public class DadosColaborador  {
+    private UUID id;
+    private DadosPessoa pessoa;
+    private DadosEmpresa empresa;
 
 }

@@ -36,7 +36,7 @@ public class PessoaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DadosPessoa> getPessoaId(
-        @RequestParam("id") UUID id
+        @PathVariable("id") UUID id
     ){
         return ResponseEntity.ok().body(pessoaService.findById(id));
     }
@@ -62,7 +62,7 @@ public class PessoaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(
-        @RequestParam ("id") UUID id
+        @PathVariable ("id") UUID id
     ) {
         pessoaService.delete(id);
         return ResponseEntity.noContent().build();

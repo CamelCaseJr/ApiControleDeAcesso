@@ -1,9 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente;
 
-import java.util.UUID;
+import lombok.Data;
 
-public record DadosDeAtualizacaoDependente(
-        UUID id
-) {
-    
+import java.util.UUID;
+@Data
+public class DadosDeAtualizacaoDependente {
+    UUID id;
 }

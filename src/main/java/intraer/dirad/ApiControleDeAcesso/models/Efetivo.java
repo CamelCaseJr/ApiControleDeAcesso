@@ -2,11 +2,13 @@ package intraer.dirad.ApiControleDeAcesso.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
+
 public class Efetivo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

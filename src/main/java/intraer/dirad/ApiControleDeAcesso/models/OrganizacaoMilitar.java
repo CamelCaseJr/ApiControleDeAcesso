@@ -2,6 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name = "organizacoes_militares")
 @Data
+
 public class OrganizacaoMilitar {
     
     

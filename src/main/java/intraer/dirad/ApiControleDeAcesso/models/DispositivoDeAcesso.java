@@ -3,6 +3,7 @@ package intraer.dirad.ApiControleDeAcesso.models;
 import java.sql.Blob;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,7 @@ import lombok.Data;
 
 @Entity
 @Data
+
 public class DispositivoDeAcesso {
 
     @Id

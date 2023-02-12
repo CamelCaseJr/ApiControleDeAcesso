@@ -2,6 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
 import jakarta.persistence.*;
 import lombok.Data;

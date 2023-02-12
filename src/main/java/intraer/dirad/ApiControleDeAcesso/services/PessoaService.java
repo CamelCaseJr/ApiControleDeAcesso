@@ -5,64 +5,68 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
-import intraer.dirad.ApiControleDeAcesso.models.Secao;
+import intraer.dirad.ApiControleDeAcesso.facade.PessoaFacade;
 import intraer.dirad.ApiControleDeAcesso.repository.ContatoRepository;
+import intraer.dirad.ApiControleDeAcesso.repository.MilitarRepository;
+import intraer.dirad.ApiControleDeAcesso.repository.SecaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
 import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.repository.PessoaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor
 public class PessoaService {
 
-    private final PessoaRepository repository;
+    private final PessoaRepository pessoaRepository;
     private final ContatoRepository contatoRepository;
+    private final SecaoRepository secaoRepository;
     private final ModelMapper mapper;
+    private final MilitarRepository militarRepository;
 
-    public PessoaService(PessoaRepository repository, ContatoRepository contatoRepository, ModelMapper mapper) {
-        this.repository = repository;
-        this.contatoRepository = contatoRepository;
-        this.mapper = mapper;
-    }
+
 
     public List<DadosPessoa> findAll() {
-        var pessoa = repository.findAll();
-        return pessoa.stream()
-                .map(p-> mapper.map(p, DadosPessoa.class))
-                .collect(Collectors.toList());
+        var pessoa = pessoaRepository.findAll();
+        return DadosPessoa.toDadosPesso(pessoa);
     }
 
     public DadosPessoa findById(UUID id) {
-        var pessoa = repository.findById(id)
+        var pessoa = pessoaRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
         return mapper.map(pessoa, DadosPessoa.class);
     }
 
+    @Transactional
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
-        var pessoa = mapper.map(dados, Pessoa.class);
-        var contato = contatoRepository.save(dados.getContato());
-        pessoa.setContato(contato);
-
-        repository.save(pessoa);
+        var pessoa = PessoaFacade.criar(pessoaRepository,
+                contatoRepository,
+                mapper,
+                secaoRepository,
+                militarRepository,
+                dados );
         return mapper.map(pessoa, DadosPessoa.class);
     }
 
+
     public void delete(UUID id) {
-        var pessoa = repository.findById(id)
+        var pessoa = pessoaRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrado"));
-        repository.delete(pessoa);
+        pessoaRepository.delete(pessoa);
     }
 
     public DadosPessoa atualizar(UUID id, @Valid DadosCadastroPessoa dado) {
-        repository.findById(id)
+        pessoaRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
         Pessoa pessoa = mapper.map(dado,Pessoa.class);
         pessoa.setId(id);
-        pessoa = repository.save(pessoa);
+        pessoa = pessoaRepository.save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
 
     }

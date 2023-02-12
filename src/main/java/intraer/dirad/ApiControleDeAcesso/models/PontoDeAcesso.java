@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import intraer.dirad.ApiControleDeAcesso.enums.Permissoes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import lombok.Data;
 @Entity
 @Table(name= "locais_de_acesso")
 @Data
+
 public class PontoDeAcesso {
 
     

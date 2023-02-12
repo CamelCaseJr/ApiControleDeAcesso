@@ -46,7 +46,7 @@ public class OrganizacaoMilitarController {
         @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = organizacaoMilitarService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.id()).toUri();
+        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }

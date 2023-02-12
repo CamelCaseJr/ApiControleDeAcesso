@@ -6,12 +6,13 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.enums.Permissoes;
 import intraer.dirad.ApiControleDeAcesso.models.Gerente;
 import intraer.dirad.ApiControleDeAcesso.models.PontoDeAcesso;
+import lombok.Data;
 
-public record DadosGerenteLocalAcesso(
-    UUID id,
-    Gerente gerente ,
-    List<PontoDeAcesso> localDeAcesso,
-    List<Permissoes> permissoes
-) {
+@Data
+public class DadosGerenteLocalAcesso{
+    UUID id;
+    Gerente gerente ;
+    List<PontoDeAcesso> localDeAcesso;
+    List<Permissoes> permissoes;
     
 }
