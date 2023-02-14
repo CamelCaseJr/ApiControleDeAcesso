@@ -45,7 +45,7 @@ public class PessoaService {
 
     @Transactional
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
-        var pessoa = PessoaFacade.criar(pessoaRepository,
+        var pessoa = PessoaFacade.cria(pessoaRepository,
                 contatoRepository,
                 mapper,
                 secaoRepository,
