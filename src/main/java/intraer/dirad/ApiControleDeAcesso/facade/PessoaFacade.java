@@ -5,60 +5,55 @@ import intraer.dirad.ApiControleDeAcesso.models.Contato;
 import intraer.dirad.ApiControleDeAcesso.models.Militar;
 import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.models.Secao;
-import intraer.dirad.ApiControleDeAcesso.repository.ContatoRepository;
-import intraer.dirad.ApiControleDeAcesso.repository.MilitarRepository;
-import intraer.dirad.ApiControleDeAcesso.repository.PessoaRepository;
-import intraer.dirad.ApiControleDeAcesso.repository.SecaoRepository;
+import intraer.dirad.ApiControleDeAcesso.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-
+@Component
+@AllArgsConstructor
 public class PessoaFacade {
 
-    public static Pessoa cria(PessoaRepository pessoaRepository,
-                              ContatoRepository contatoRepository,
-                              ModelMapper mapper,
-                              SecaoRepository secaoRepository,
-                              MilitarRepository militarRepository,
-                              DadosCadastroPessoa dados)
+    private final RepositorioGlobal repository;
+    private final ModelMapper mapper;
+    public Pessoa cria(DadosCadastroPessoa dados)
     {
-        var contato = criarContato(contatoRepository, dados);
-        var militar = criarMilitar(mapper, militarRepository, dados);
-        var secao = criaSecao(secaoRepository, dados);
-        return criaPessoa(pessoaRepository,mapper,dados,contato,secao,militar);
-
+        var contato = criarContato(dados);
+        var militar = criarMilitar(dados);
+        var secao = criaSecao(dados);
+        return criaPessoa(dados,contato,secao,militar);
 
     }
-    private static Contato criarContato(ContatoRepository contatoRepository,
-                                        DadosCadastroPessoa dados) {
+
+
+    private  Contato criarContato(DadosCadastroPessoa dados) {
         var valorDoContato = dados.getContato().getValorDoContato();
         var tipo = dados.getContato().getTipo();
         if (!valorDoContato.isBlank() && tipo != null){
-            return contatoRepository.save(dados.getContato());
+            return repository.getContatoRepository().save(dados.getContato());
         }else throw new EntityNotFoundException("Contato está em branco");
     }
-    private static Militar criarMilitar(ModelMapper mapper,
-                                        MilitarRepository militarRepository,
-                                        DadosCadastroPessoa dados) {
-        var militar = mapper.map(dados.getMilitar(), Militar.class);
-        if (militar != null) {
-            return militarRepository.save(militar);
-        } else return militar;
+    private  Militar criarMilitar(DadosCadastroPessoa dados) {
+        if (dados.getMilitar() != null) {
+            var militar = mapper.map(dados.getMilitar(), Militar.class);
+            return repository.getMilitarRepository().save(militar);
+        } else return dados.getMilitar();
     }
 
-    protected static List<Secao> criaSecao(SecaoRepository secaoRepository,
-                                           DadosCadastroPessoa dados) {
-        return dados.getSetor().stream()
-                .map(secaoRepository::save).collect(Collectors.toList());
+    protected  List<Secao> criaSecao(DadosCadastroPessoa dados) {
+        if (dados.getSetor() != null) {
+            return dados.getSetor().stream()
+                    .map(repository.getSecaoRepository()::save).collect(Collectors.toList());
+        }else throw new EntityNotFoundException("Secao nao pode ser nula");
     }
-    private static Pessoa criaPessoa(PessoaRepository pessoaRepository,
-                                     ModelMapper mapper,
-                                     DadosCadastroPessoa dados,
+    private Pessoa criaPessoa(DadosCadastroPessoa dados,
                                      Contato contato,
                                      List<Secao> secao,
                                      Militar militar) {
@@ -66,6 +61,9 @@ public class PessoaFacade {
         pessoa.setContato(contato);
         pessoa.setSetor(secao);
         pessoa.setMilitar(militar);
-        return pessoaRepository.save(pessoa);
+        return repository.getPessoaRepository().save(pessoa);
     }
+
+
+
 }

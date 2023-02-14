@@ -1,14 +1,10 @@
 package intraer.dirad.ApiControleDeAcesso.models;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -25,5 +21,10 @@ public class OrganizacaoMilitar {
 
     private String nome;
     private String sigla;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Secao> secao;
+    @OneToMany(fetch = FetchType.LAZY)
+    @Column(name = "organizacoes_subordinada")
+    private List<OrganizacaoMilitar> organizacoesSubordinadas;
 
 }
