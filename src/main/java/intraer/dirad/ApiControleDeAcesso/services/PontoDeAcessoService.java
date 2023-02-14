@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPermissaoGerenteLocalAcesso.DadosGerenteLocalAcesso;
-import intraer.dirad.ApiControleDeAcesso.models.PermissaoGerenteLocalAcesso;
 import intraer.dirad.ApiControleDeAcesso.models.PontoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.repository.PontoDeAcessoRepository;
 import jakarta.persistence.EntityNotFoundException;

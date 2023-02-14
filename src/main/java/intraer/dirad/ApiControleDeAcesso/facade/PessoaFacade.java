@@ -10,11 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,6 +20,7 @@ public class PessoaFacade {
 
     private final RepositorioGlobal repository;
     private final ModelMapper mapper;
+
     public Pessoa cria(DadosCadastroPessoa dados)
     {
         var contato = criarContato(dados);

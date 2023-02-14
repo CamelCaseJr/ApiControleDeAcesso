@@ -1,12 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.services;
 
-import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
-import intraer.dirad.ApiControleDeAcesso.mappers.ColaboradorMapper;
 import intraer.dirad.ApiControleDeAcesso.repository.ColaboradorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -17,7 +14,6 @@ import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoCol
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
 import intraer.dirad.ApiControleDeAcesso.models.Colaborador;
-import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
 import jakarta.validation.Valid;
 
 @Service

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoOrganizacaoMilitar.DadosOrganizacaoMilitar;
-import intraer.dirad.ApiControleDeAcesso.models.OrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.models.PermissaoGerenteLocalAcesso;
 import intraer.dirad.ApiControleDeAcesso.repository.PermGerentLocalRepository;
 import jakarta.persistence.EntityNotFoundException;

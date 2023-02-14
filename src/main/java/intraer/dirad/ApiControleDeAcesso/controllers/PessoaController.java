@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,6 +65,26 @@ public class PessoaController {
         pessoaService.delete(id);
         return ResponseEntity.noContent().build();
         
+    }
+
+    @PostMapping("/{id}/contatos")
+    public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
+                                                 @RequestBody @Valid DadosCadastroPessoa dado
+    ){
+        return ResponseEntity.ok().body(pessoaService.salvarContatos(id,dado));
+    }
+    @PostMapping("/{id}/militares")
+    public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
+                                                      @RequestBody @Valid DadosCadastroPessoa dado
+    ){
+        return ResponseEntity.ok().body(pessoaService.salvarMilitar(id,dado));
+    }
+
+    @PostMapping("/{id}/secoes")
+    public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
+                                                     @RequestBody @Valid DadosCadastroPessoa dado
+    ){
+        return ResponseEntity.ok().body(pessoaService.criarSecao(id,dado));
     }
 
 

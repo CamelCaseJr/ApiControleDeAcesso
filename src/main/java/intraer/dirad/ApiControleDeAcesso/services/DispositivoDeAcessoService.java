@@ -2,7 +2,6 @@ package intraer.dirad.ApiControleDeAcesso.services;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -16,7 +15,6 @@ import intraer.dirad.ApiControleDeAcesso.repository.DispositivoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.val;
 
 @Service
 @AllArgsConstructor

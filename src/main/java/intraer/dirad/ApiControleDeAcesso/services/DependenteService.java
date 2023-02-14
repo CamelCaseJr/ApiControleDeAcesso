@@ -8,7 +8,6 @@ import intraer.dirad.ApiControleDeAcesso.models.Dependente;
 import intraer.dirad.ApiControleDeAcesso.repository.DependenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
