@@ -17,4 +17,5 @@ public class RepositorioGlobal {
     private final PontoDeAcessoRepository pontoDeAcessoRepository;
     private final SecaoRepository secaoRepository;
     private final PessoaRepository pessoaRepository;
+    private final VisitaRepository visitaRepository;
 }

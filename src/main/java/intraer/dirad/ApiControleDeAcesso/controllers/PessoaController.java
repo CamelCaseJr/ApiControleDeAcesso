@@ -69,20 +69,20 @@ public class PessoaController {
 
     @PostMapping("/{id}/contatos")
     public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
-                                                 @RequestBody @Valid DadosCadastroPessoa dado
+                                                @RequestBody @Valid DadosCadastroPessoa dado
     ){
         return ResponseEntity.ok().body(pessoaService.salvarContatos(id,dado));
     }
     @PostMapping("/{id}/militares")
     public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
-                                                      @RequestBody @Valid DadosCadastroPessoa dado
+                                                @RequestBody @Valid DadosCadastroPessoa dado
     ){
         return ResponseEntity.ok().body(pessoaService.salvarMilitar(id,dado));
     }
 
     @PostMapping("/{id}/secoes")
     public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
-                                                     @RequestBody @Valid DadosCadastroPessoa dado
+                                                @RequestBody @Valid DadosCadastroPessoa dado
     ){
         return ResponseEntity.ok().body(pessoaService.criarSecao(id,dado));
     }

@@ -5,8 +5,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosCadastroContato;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
 import intraer.dirad.ApiControleDeAcesso.facade.PessoaFacade;
+import intraer.dirad.ApiControleDeAcesso.models.Contato;
 import intraer.dirad.ApiControleDeAcesso.models.Militar;
 import intraer.dirad.ApiControleDeAcesso.repository.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -70,19 +72,18 @@ public class PessoaService {
 
     }
 
-    public DadosPessoa salvarContatos(UUID id, DadosCadastroPessoa dado) {
+    public DadosPessoa salvarContatos(UUID id, DadosCadastroContato dado) {
         var pessoa = repository.getPessoaRepository().findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrado"));
 
-        var valorDoContato = dado.getContato().getValorDoContato();
-        var tipo = dado.getContato().getTipo();
+        var contato = mapper.map(dado, Contato.class);
 
-        if (!valorDoContato.isBlank() && tipo != null){
-            var contato = repository.getContatoRepository().save(dado.getContato());
-            pessoa.setContato(contato);
-            repository.getPessoaRepository().save(pessoa);
-            return mapper.map(pessoa, DadosPessoa.class);
-        }else throw new EntityNotFoundException("Contato está em branco");
+        if (contato != null){
+            var contatoSalvo = repository.getContatoRepository().save(contato);
+            pessoa.setContato(contatoSalvo);
+            var pessoaSalva = repository.getPessoaRepository().save(pessoa);
+            return mapper.map(pessoaSalva, DadosPessoa.class);
+        }else throw new NullPointerException("Contato nulo");
 
     }
 
