@@ -38,21 +38,17 @@ public class DispositivoDeAcessoService {
 
     public DadosDispositivosDeAcesso salvar(@Valid DadosCadastroDispositivoDeAcesso dados) {
         DispositivoDeAcesso dispositivo = mapper.map(dados, DispositivoDeAcesso.class);
-        repository.save(dispositivo);
+        dispositivo = repository.save(dispositivo);
         return mapper.map(dispositivo, DadosDispositivosDeAcesso.class);
     }
     public DadosDispositivosDeAcesso atualizar(UUID id, @Valid DadosAtualizacaoDispositivoDeAcesso dados) {
-        DispositivoDeAcesso dispositivo = repository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Dispositivo não encontrado"));
-        mapper.map(dispositivo, dados);
-        repository.save(dispositivo);
+        var dispositivo = mapper.map(dados, DispositivoDeAcesso.class);
+        dispositivo =repository.save(dispositivo);
         return mapper.map(dispositivo, DadosDispositivosDeAcesso.class);
     }
 
     public void delete(UUID id) {
-        DispositivoDeAcesso dispositivo = repository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Dispositivo não encontrado"));
-        repository.delete(dispositivo);
+        repository.deleteById(id);
     }
     
 }

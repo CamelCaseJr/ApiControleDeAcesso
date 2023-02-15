@@ -42,8 +42,6 @@ public class ColaboradorService {
 
     public DadosColaborador atualizar(UUID id, @Valid DadosAtualizacaoColaborador dado) {
 
-        repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
         Colaborador colaborador = mapper.map(dado,Colaborador.class);
         colaborador.setId(id);
         colaborador = repository.save(colaborador);
@@ -53,10 +51,7 @@ public class ColaboradorService {
     }
 
     public void delete(UUID id) {
-        var colaboradorOpitinal = repository.findById(id);
-        Colaborador entity = colaboradorOpitinal
-                .orElseThrow(() -> new EntityNotFoundException("People not found"));
-        repository.delete(entity);
+        repository.deleteById(id);
     }
 
     public DadosColaborador findById(UUID id) {

@@ -42,17 +42,15 @@ public class PontoDeAcessoService {
     }
 
     public DadosPontoDeAcesso atualizar(UUID id, @Valid DadosAtualizacaoPontoDeAcesso dado) {
-        var pontoDeAcesso = repository.findById(id)
-                .map(p-> mapper.map(dado, PontoDeAcesso.class))
-                .orElseThrow(()-> new EntityNotFoundException("gerente não encontrada"));
+        var pontoDeAcesso = mapper.map(dado, PontoDeAcesso.class);
+        pontoDeAcesso.setId(id);
         repository.save(pontoDeAcesso);
         return mapper.map(pontoDeAcesso, DadosPontoDeAcesso.class);
     }
 
     public void delete(UUID id) {
-        var pontoDeAcesso = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("pontoDeAcesso não encontrado"));
-        repository.delete(pontoDeAcesso);
+
+        repository.deleteById(id);
     }
     
 }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosCadastroContato;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,13 +71,13 @@ public class PessoaController {
 
     @PostMapping("/{id}/contatos")
     public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
-                                                @RequestBody @Valid DadosCadastroPessoa dado
+                                                @RequestBody @Valid DadosCadastroContato dado
     ){
         return ResponseEntity.ok().body(pessoaService.salvarContatos(id,dado));
     }
     @PostMapping("/{id}/militares")
     public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
-                                                @RequestBody @Valid DadosCadastroPessoa dado
+                                                @RequestBody @Valid DadosCadastroMilitar dado
     ){
         return ResponseEntity.ok().body(pessoaService.salvarMilitar(id,dado));
     }

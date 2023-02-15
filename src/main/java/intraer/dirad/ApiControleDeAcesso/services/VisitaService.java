@@ -32,9 +32,13 @@ public class VisitaService {
     }
 
     public DadosVisita findById(UUID id) {
-        var visita = repository.getVisitaRepository().findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
+        var visita = getVisitante(id, "visitante não encontrada");
         return mapper.map(visita, DadosVisita.class);
+    }
+
+    private Visita getVisitante(UUID id, String visitante_nao_encontrada) {
+        return repository.getVisitaRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(visitante_nao_encontrada));
     }
 
     @Transactional
@@ -45,14 +49,10 @@ public class VisitaService {
     }
 
     public void delete(UUID id) {
-        var visita = repository.getVisitaRepository().findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrado"));
-        repository.getVisitaRepository().delete(visita);
+        repository.getVisitaRepository().deleteById(id);
     }
 
     public DadosVisita atualizar(UUID id, @Valid DadosCadastroVisita dado) {
-        repository.getVisitaRepository().findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("pessoa não encontrada"));
         Visita visita = mapper.map(dado,Visita.class);
         visita.setId(id);
         visita = repository.getVisitaRepository().save(visita);

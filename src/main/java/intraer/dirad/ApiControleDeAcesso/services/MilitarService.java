@@ -43,17 +43,13 @@ public class MilitarService {
     }
 
     public DadosMilitar atualizar(UUID id, @Valid DadosAtualizacaoMilitar dado) {
-        Militar militar = repository.findById(id)
-        .orElseThrow(()-> new EntityNotFoundException("militar não encontrado"));
-        mapper.map(dado, militar);
-        repository.save(militar);
+        var militar = mapper.map(dado, Militar.class);
+        militar = repository.save(militar);
         return mapper.map(militar, DadosMilitar.class);
     }
 
     public void delete(UUID id) {
-        Militar militar = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("militar não encontrado"));
-        repository.delete(militar);
+        repository.deleteById(id);
     }
     
 }

@@ -25,38 +25,32 @@ public class DependenteService {
     public List<DadosDependente> findAll() {
         var dependentes = repository.findAll();
         return dependentes.stream()
-                .map(d-> mapper.map(d, DadosDependente.class))
+                .map(d -> mapper.map(d, DadosDependente.class))
                 .collect(Collectors.toList());
     }
 
     public DadosDependente findById(UUID id) {
         Dependente dependente = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("dependente not found"));
+                .orElseThrow(() -> new EntityNotFoundException("dependente not found"));
         return mapper.map(dependente, DadosDependente.class);
     }
 
     public DadosDependente salvar(@Valid DadosCadastroDependente dados) {
-        try {
-            Dependente dependente = mapper.map(dados, Dependente.class);
-            repository.save(dependente);
-            return mapper.map(dependente, DadosDependente.class);
-        }catch (EntityNotFoundException err){
-            throw new EntityNotFoundException(err.getMessage());
-        }
+
+        Dependente dependente = mapper.map(dados, Dependente.class);
+        dependente = repository.save(dependente);
+        return mapper.map(dependente, DadosDependente.class);
     }
-    
+
     public DadosDependente atualizar(UUID id, @Valid DadosDeAtualizacaoDependente dado) {
-        Dependente dependente = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("dependente not found"));
-        mapper.map(dado,dependente);
-        repository.save(dependente);
+        var dependente = mapper.map(dado, Dependente.class);
+        dependente.setId(id);
+        dependente = repository.save(dependente);
         return mapper.map(dependente, DadosDependente.class);
     }
 
     public void delete(UUID id) {
-        Dependente dependente = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("dependente not found"));
-        repository.delete(dependente);
+        repository.deleteById(id);
     }
-    
+
 }

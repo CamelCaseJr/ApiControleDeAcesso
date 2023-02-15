@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import intraer.dirad.ApiControleDeAcesso.models.Gerente;
 import intraer.dirad.ApiControleDeAcesso.models.PermissaoGerenteLocalAcesso;
 import intraer.dirad.ApiControleDeAcesso.repository.PermGerentLocalRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,17 +43,14 @@ public class PermissaoGerenteLocalService {
     }
 
     public DadosGerenteLocalAcesso atualizar(UUID id, @Valid DadosAtualizacaoGerenteLocalAcesso dado) {
-        var gerente = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("gerente não encontrada"));
-        mapper.map(dado, gerente);
-        repository.save(gerente);
+        var gerente = mapper.map(dado, PermissaoGerenteLocalAcesso.class);
+        gerente.setId(id);
+        gerente = repository.save(gerente);
         return mapper.map(gerente, DadosGerenteLocalAcesso.class);
     }
 
     public void delete(UUID id) {
-        var gerente = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("gerente não encontrado"));
-        repository.delete(gerente);
+        repository.deleteById(id);
     }
     
 }

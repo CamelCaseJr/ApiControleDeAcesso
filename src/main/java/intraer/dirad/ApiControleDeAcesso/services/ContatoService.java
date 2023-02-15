@@ -36,18 +36,13 @@ public class ContatoService {
     }
 
     public DadosContato atualizar(UUID id, @Valid DadosAtualizacaoContato dado) {
-
-        Contato contato =  repository.findById(id).map(c-> mapper.map(dado, Contato.class))
-                .orElseThrow(()-> new EntityNotFoundException("contato not found"));
-        mapper.map(dado,contato);
-        repository.save(contato);
+        var contato = mapper.map(dado,Contato.class);
+        contato = repository.save(contato);
         return mapper.map(contato, DadosContato.class);
     }
 
     public void delete(UUID id) {
-        Contato contato = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("contato not found"));
-        repository.delete(contato);
+        repository.deleteById(id);
     }
 
     public DadosContato findById(UUID id) {

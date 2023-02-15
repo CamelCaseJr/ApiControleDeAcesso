@@ -2,7 +2,6 @@ package intraer.dirad.ApiControleDeAcesso.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,4 +17,5 @@ public class RepositorioGlobal {
     private final SecaoRepository secaoRepository;
     private final PessoaRepository pessoaRepository;
     private final VisitaRepository visitaRepository;
+
 }

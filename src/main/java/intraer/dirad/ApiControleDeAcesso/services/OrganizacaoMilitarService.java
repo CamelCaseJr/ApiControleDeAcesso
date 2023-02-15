@@ -41,18 +41,14 @@ public class OrganizacaoMilitarService {
     }
 
     public DadosOrganizacaoMilitar atualizar(UUID id, @Valid DadosAtualizacaoOrganizacaoMilitar dado) {
-        var organMilitar = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("organizacao não encontrada"));
-        mapper.map(dado, organMilitar);
-        repository.save(organMilitar);
+        var organMilitar = mapper.map(dado, OrganizacaoMilitar.class);
+        organMilitar = repository.save(organMilitar);
         return mapper.map(organMilitar, DadosOrganizacaoMilitar.class);
 
     }
 
     public void delete(UUID id) {
-        var organMilitar = repository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("organizacao não encontrado"));
-        repository.delete(organMilitar);
+        repository.deleteById(id);
     }
     
 }
