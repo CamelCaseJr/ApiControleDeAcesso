@@ -26,7 +26,7 @@ public class ColaboradorController {
         return ResponseEntity.ok().body(colaboradorService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosColaborador> contatoId(
+    public ResponseEntity<DadosColaborador> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(colaboradorService.findById(id));
@@ -38,7 +38,7 @@ public class ColaboradorController {
         @RequestBody @Valid DadosCadastroColaborador dados, UriComponentsBuilder uriBuilder
     ) {
         DadosColaborador colaborador = colaboradorService.salvar(dados);
-        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.getId()).toUri();
+        var uri = uriBuilder.path("/colaboradores/{id}").buildAndExpand(colaborador.getId()).toUri();
         return ResponseEntity.created(uri).body(colaborador);
         
     }

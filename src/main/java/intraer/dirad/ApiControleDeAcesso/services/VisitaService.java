@@ -8,8 +8,8 @@ import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DadosCadastroVisita;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DadosVisita;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosCadastroVisita;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosVisita;
 import intraer.dirad.ApiControleDeAcesso.models.Visita;
 import intraer.dirad.ApiControleDeAcesso.repository.RepositorioGlobal;
 import jakarta.persistence.EntityNotFoundException;

@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping
+@RequestMapping("/pontos-de-acesso")
 @AllArgsConstructor
 public class PontoDeAcessoController {
     
@@ -34,7 +34,7 @@ public class PontoDeAcessoController {
         return ResponseEntity.ok().body(pontoDeAcessoService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosPontoDeAcesso> contatoId(
+    public ResponseEntity<DadosPontoDeAcesso> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(pontoDeAcessoService.findById(id));
@@ -46,7 +46,7 @@ public class PontoDeAcessoController {
         @RequestBody @Valid DadosCadastroPontoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var pontoDeAcesso = pontoDeAcessoService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(pontoDeAcesso.getId()).toUri();
+        var uri = uriBuilder.path("/pontos-de-acesso/{id}").buildAndExpand(pontoDeAcesso.getId()).toUri();
         return ResponseEntity.created(uri).body(pontoDeAcesso);
         
     }

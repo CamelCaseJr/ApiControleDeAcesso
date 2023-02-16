@@ -35,7 +35,7 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosPessoa> getPessoaId(
+    public ResponseEntity<DadosPessoa> findById(
         @PathVariable("id") UUID id
     ){
         return ResponseEntity.ok().body(pessoaService.findById(id));
@@ -48,7 +48,7 @@ public class PessoaController {
         UriComponentsBuilder uriBuilder
     ){
         var pessoa = pessoaService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(pessoa.getId()).toUri();
+        var uri = uriBuilder.path("/pessoas/{id}").buildAndExpand(pessoa.getId()).toUri();
         return ResponseEntity.created(uri).body(pessoa);
         
     }

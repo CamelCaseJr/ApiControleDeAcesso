@@ -35,7 +35,7 @@ public class ContatoController {
         return ResponseEntity.ok().body(contatoService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosContato> contatoId(
+    public ResponseEntity<DadosContato> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(contatoService.findById(id));

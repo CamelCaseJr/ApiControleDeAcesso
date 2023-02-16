@@ -27,7 +27,7 @@ public class DependenteController {
         return ResponseEntity.ok().body(dependenteService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDependente> contatoId(
+    public ResponseEntity<DadosDependente> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(dependenteService.findById(id));
@@ -39,7 +39,7 @@ public class DependenteController {
         @RequestBody @Valid DadosCadastroDependente dados, UriComponentsBuilder uriBuilder
     ) {
         var dependente = dependenteService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(dependente.getId()).toUri();
+        var uri = uriBuilder.path("/dependentes/{id}").buildAndExpand(dependente.getId()).toUri();
         return ResponseEntity.created(uri).body(dependente);
         
     }

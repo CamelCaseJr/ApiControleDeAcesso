@@ -34,7 +34,7 @@ public class PermissaoGerenteLocalAcessoController {
         return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosGerenteLocalAcesso> contatoId(
+    public ResponseEntity<DadosGerenteLocalAcesso> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(permissaoGerenteLocalService.findById(id));
@@ -46,7 +46,7 @@ public class PermissaoGerenteLocalAcessoController {
         @RequestBody @Valid DadosCadastroGerenteLocalAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = permissaoGerenteLocalService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
+        var uri = uriBuilder.path("/permissoes-gerente-local/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }

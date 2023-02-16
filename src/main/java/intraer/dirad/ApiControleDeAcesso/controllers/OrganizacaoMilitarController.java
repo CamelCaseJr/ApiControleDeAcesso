@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/organizacao-militar")
+@RequestMapping("/organizacoes-militares")
 @AllArgsConstructor
 public class OrganizacaoMilitarController {
 
@@ -34,7 +34,7 @@ public class OrganizacaoMilitarController {
         return ResponseEntity.ok().body(organizacaoMilitarService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosOrganizacaoMilitar> contatoId(
+    public ResponseEntity<DadosOrganizacaoMilitar> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(organizacaoMilitarService.findById(id));
@@ -46,7 +46,7 @@ public class OrganizacaoMilitarController {
         @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = organizacaoMilitarService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
+        var uri = uriBuilder.path("/organizacoes-militares/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }

@@ -34,7 +34,7 @@ public class MilitarController {
         return ResponseEntity.ok().body(militarService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosMilitar> contatoId(
+    public ResponseEntity<DadosMilitar> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(militarService.findById(id));
@@ -46,7 +46,7 @@ public class MilitarController {
         @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = militarService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
+        var uri = uriBuilder.path("/militares/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }

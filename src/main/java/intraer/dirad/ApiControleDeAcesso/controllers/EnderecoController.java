@@ -1,8 +1,10 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosCadastroEndereco;
+import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosEndereco;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosCadastroVisita;
 import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosVisita;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
+import intraer.dirad.ApiControleDeAcesso.services.EnderecoService;
 import intraer.dirad.ApiControleDeAcesso.services.VisitaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -16,19 +18,19 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(("/pontosdeacesso"))
+@RequestMapping(("/enderecos"))
 @AllArgsConstructor
-public class VisitaController {
+public class EnderecoController {
 
-    private final VisitaService service;
+    private final EnderecoService service;
 
 
     @GetMapping
-    public ResponseEntity<List<DadosVisita>> listarTodos() {
+    public ResponseEntity<List<DadosEndereco>> listarTodos() {
         return ResponseEntity.ok().body(service.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosVisita> findById(
+    public ResponseEntity<DadosEndereco> findById(
             @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(service.findById(id));
@@ -36,18 +38,18 @@ public class VisitaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosVisita> cadastrar(
-            @RequestBody @Valid DadosCadastroVisita dados, UriComponentsBuilder uriBuilder
+    public ResponseEntity<DadosEndereco> cadastrar(
+            @RequestBody @Valid DadosCadastroEndereco dados, UriComponentsBuilder uriBuilder
     ) {
-        var visita = service.salvar(dados);
-        var uri = uriBuilder.path("/visitas/{id}").buildAndExpand(visita.getId()).toUri();
-        return ResponseEntity.created(uri).body(visita);
+        var endereco = service.salvar(dados);
+        var uri = uriBuilder.path("/enderecos/{id}").buildAndExpand(endereco.getId()).toUri();
+        return ResponseEntity.created(uri).body(endereco);
 
     }
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<DadosVisita> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroVisita dado) {
+    public ResponseEntity<DadosEndereco> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroEndereco dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
     }

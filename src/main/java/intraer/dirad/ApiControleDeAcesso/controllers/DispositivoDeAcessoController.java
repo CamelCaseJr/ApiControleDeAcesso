@@ -22,7 +22,7 @@ import intraer.dirad.ApiControleDeAcesso.services.DispositivoDeAcessoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/dispositivoDeAcessos")
+@RequestMapping("/dispositivo-de-acessos")
 public class DispositivoDeAcessoController {
     private final DispositivoDeAcessoService dispositivoDeAcessoService;
     
@@ -34,7 +34,7 @@ public class DispositivoDeAcessoController {
         return ResponseEntity.ok().body(dispositivoDeAcessoService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDispositivosDeAcesso> contatoId(
+    public ResponseEntity<DadosDispositivosDeAcesso> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(dispositivoDeAcessoService.findById(id));
@@ -46,7 +46,7 @@ public class DispositivoDeAcessoController {
         @RequestBody @Valid DadosCadastroDispositivoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var dependente = dispositivoDeAcessoService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(dependente.getId()).toUri();
+        var uri = uriBuilder.path("/dispositivo-de-acessos/{id}").buildAndExpand(dependente.getId()).toUri();
         return ResponseEntity.created(uri).body(dependente);
         
     }

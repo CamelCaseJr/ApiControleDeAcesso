@@ -1,4 +1,4 @@
-package intraer.dirad.ApiControleDeAcesso.Dtos;
+package intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
