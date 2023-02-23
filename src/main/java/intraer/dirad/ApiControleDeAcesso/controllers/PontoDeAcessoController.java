@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPntoDeAcesso.DadosAtualizacaoPontoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPntoDeAcesso.DadosCadastroPontoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPntoDeAcesso.DadosPontoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.services.PontoDeAcessoService;
+import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.validacoes.DadosAtualizacaoPontoDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.validacoes.DadosCadastroPontoDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.validacoes.DadosPontoDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.PontoDeAcessoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 

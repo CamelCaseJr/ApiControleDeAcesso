@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosAtualizacaoMilitar;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosMilitar;
-import intraer.dirad.ApiControleDeAcesso.services.MilitarService;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosAtualizacaoMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.MilitarService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

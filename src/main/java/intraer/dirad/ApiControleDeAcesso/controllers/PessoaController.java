@@ -4,16 +4,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosCadastroContato;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente.DadosDependente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastroContato;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosPessoa;
-import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
-import intraer.dirad.ApiControleDeAcesso.services.PessoaService;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosCadastroPessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.PessoaService;
 import jakarta.validation.Valid;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,9 +33,9 @@ public class PessoaController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<DadosPessoa>> getAllPessoas() {
+    public ResponseEntity<Page<DadosPessoa>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
 
-        return ResponseEntity.ok().body(pessoaService.findAll());
+        return ResponseEntity.ok().body(pessoaService.findAll(paginacao));
     }
 
     @GetMapping("/{id}")

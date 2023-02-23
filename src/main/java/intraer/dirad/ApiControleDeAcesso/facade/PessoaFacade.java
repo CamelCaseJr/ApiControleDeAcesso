@@ -1,11 +1,11 @@
 package intraer.dirad.ApiControleDeAcesso.facade;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPessoa.DadosCadastroPessoa;
-import intraer.dirad.ApiControleDeAcesso.models.Contato;
-import intraer.dirad.ApiControleDeAcesso.models.Militar;
-import intraer.dirad.ApiControleDeAcesso.models.Pessoa;
-import intraer.dirad.ApiControleDeAcesso.models.Secao;
-import intraer.dirad.ApiControleDeAcesso.repository.*;
+import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosCadastroPessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
+import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,11 +1,8 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosCadastroEndereco;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosEndereco;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoGerente.DadosCadastroGerente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoGerente.DadosGerente;
-import intraer.dirad.ApiControleDeAcesso.services.EnderecoService;
-import intraer.dirad.ApiControleDeAcesso.services.GerenteService;
+import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosCadastroGerente;
+import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosGerente;
+import intraer.dirad.ApiControleDeAcesso.domain.gerente.GerenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

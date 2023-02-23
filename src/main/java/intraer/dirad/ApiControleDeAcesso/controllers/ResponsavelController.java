@@ -1,12 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoGerente.DadosCadastroGerente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoGerente.DadosGerente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoResponsavel.DadosAtualizacaoResponsavel;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoResponsavel.DadosCadastroResponsavel;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoResponsavel.DadosResponsavel;
-import intraer.dirad.ApiControleDeAcesso.services.GerenteService;
-import intraer.dirad.ApiControleDeAcesso.services.ResponsavelService;
+import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosAtualizacaoResponsavel;
+import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosCadastroResponsavel;
+import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosResponsavel;
+import intraer.dirad.ApiControleDeAcesso.domain.responsavel.ResponsavelService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

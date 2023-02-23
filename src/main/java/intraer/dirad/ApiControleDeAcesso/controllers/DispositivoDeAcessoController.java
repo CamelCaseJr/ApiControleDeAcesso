@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDispositivosDeacesso.DadosAtualizacaoDispositivoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDispositivosDeacesso.DadosCadastroDispositivoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDispositivosDeacesso.DadosDispositivosDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.services.DispositivoDeAcessoService;
+import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosAtualizacaoDispositivoDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosCadastroDispositivoDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosDispositivosDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.DispositivoDeAcessoService;
 import jakarta.validation.Valid;
 
 @RestController

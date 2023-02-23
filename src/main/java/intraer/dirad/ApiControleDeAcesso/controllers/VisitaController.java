@@ -1,14 +1,12 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosCadastroVisita;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosVisita;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoMilitar.DadosCadastroMilitar;
-import intraer.dirad.ApiControleDeAcesso.services.VisitaService;
+import intraer.dirad.ApiControleDeAcesso.domain.visita.validacoes.DadosCadastroVisita;
+import intraer.dirad.ApiControleDeAcesso.domain.visita.validacoes.DadosVisita;
+import intraer.dirad.ApiControleDeAcesso.domain.visita.VisitaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

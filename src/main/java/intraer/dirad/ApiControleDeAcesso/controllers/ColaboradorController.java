@@ -1,11 +1,15 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
-import intraer.dirad.ApiControleDeAcesso.services.ColaboradorService;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosAtualizacaoColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosCadastroColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorService;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosPessoa;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +26,8 @@ public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;
     @GetMapping
-    public ResponseEntity<List<DadosColaborador>> listarTodos() {
-        return ResponseEntity.ok().body(colaboradorService.findAll());
+    public ResponseEntity<Page<DadosColaborador>> findAll(@PageableDefault(size = 10, sort = {"pessoaNome"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(colaboradorService.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosColaborador> findById(

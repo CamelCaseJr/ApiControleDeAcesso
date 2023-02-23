@@ -1,9 +1,9 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente.DadosCadastroDependente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente.DadosDeAtualizacaoDependente;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoDependente.DadosDependente;
-import intraer.dirad.ApiControleDeAcesso.services.DependenteService;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosCadastroDependente;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDeAtualizacaoDependente;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

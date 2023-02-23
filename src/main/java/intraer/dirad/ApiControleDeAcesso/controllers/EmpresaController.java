@@ -1,12 +1,8 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEmpresa.DadosCadastroEmpresa;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEmpresa.DadosEmpresa;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoSecao.DadosAtualizacaoSecao;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoSecao.DadosCadastroSecao;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoSecao.DadosSecao;
-import intraer.dirad.ApiControleDeAcesso.services.EmpresaService;
-import intraer.dirad.ApiControleDeAcesso.services.SecaoService;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosCadastroEmpresa;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.EmpresaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

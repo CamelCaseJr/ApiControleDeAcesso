@@ -1,16 +1,12 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosCadastroEndereco;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoEndereco.DadosEndereco;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosCadastroVisita;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoVisita.DadosVisita;
-import intraer.dirad.ApiControleDeAcesso.services.EnderecoService;
-import intraer.dirad.ApiControleDeAcesso.services.VisitaService;
+import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosCadastroEndereco;
+import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosEndereco;
+import intraer.dirad.ApiControleDeAcesso.domain.endereco.EnderecoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
