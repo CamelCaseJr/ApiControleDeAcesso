@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.domain.dependente.Dependente;
-import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosCadastroDependente;
@@ -22,11 +22,9 @@ public class DependenteService {
     private final DependenteRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosDependente> findAll() {
-        var dependentes = repository.findAll();
-        return dependentes.stream()
-                .map(d -> mapper.map(d, DadosDependente.class))
-                .collect(Collectors.toList());
+    public Page<DadosDependente> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosDependente::new);
+
     }
 
     public DadosDependente findById(UUID id) {

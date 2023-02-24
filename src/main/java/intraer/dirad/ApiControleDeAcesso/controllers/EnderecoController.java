@@ -1,11 +1,15 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosCadastroEndereco;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosEndereco;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.EnderecoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,8 +26,8 @@ public class EnderecoController {
 
 
     @GetMapping
-    public ResponseEntity<List<DadosEndereco>> listarTodos() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<Page<DadosEndereco>> findAll(@PageableDefault(size = 10, sort = {"cidade"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosEndereco> findById(

@@ -7,6 +7,7 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastroContato;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosCadastroSecao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -108,7 +109,7 @@ public class PessoaController {
 
     @PostMapping("/{id}/secoes")
     public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
-                                                @RequestBody @Valid DadosCadastroPessoa dado)
+                                                @RequestBody @Valid DadosCadastroSecao dado)
     {
         return ResponseEntity.ok().body(pessoaService.criarSecao(id,dado));
     }

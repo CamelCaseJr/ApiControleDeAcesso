@@ -1,11 +1,15 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
+import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosContato;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosCadastroDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDeAtualizacaoDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,8 +27,8 @@ public class DependenteController {
         this.dependenteService = dependenteService;
     }
     @GetMapping
-    public ResponseEntity<List<DadosDependente>> listarTodos() {
-        return ResponseEntity.ok().body(dependenteService.findAll());
+    public ResponseEntity<Page<DadosDependente>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(dependenteService.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosDependente> findById(

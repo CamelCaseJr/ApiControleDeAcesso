@@ -1,5 +1,6 @@
 package intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes;
 
+import intraer.dirad.ApiControleDeAcesso.domain.endereco.Endereco;
 import lombok.Data;
 
 import java.util.UUID;
@@ -14,4 +15,14 @@ public class DadosEndereco {
     private String numero;
     private String estado;
     private String cidade;
+
+    public DadosEndereco(Endereco endereco) {
+        this.id = endereco.getId();
+        this.cep = endereco.getCep();
+        this.logradouro = endereco.getLogradouro();
+        this.complemento = endereco.getComplemento();
+        this.numero = endereco.getNumero();
+        this.estado = endereco.getEstado();
+        this.cidade = endereco.getCidade();
+    }
 }

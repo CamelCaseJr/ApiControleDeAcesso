@@ -2,12 +2,12 @@ package intraer.dirad.ApiControleDeAcesso.domain.endereco;
 
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosCadastroEndereco;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosEndereco;
-import intraer.dirad.ApiControleDeAcesso.domain.endereco.Endereco;
-import intraer.dirad.ApiControleDeAcesso.domain.endereco.EnderecoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +20,9 @@ public class EnderecoService {
     private final EnderecoRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosEndereco>findAll() {
-        var enderecos = repository.findAll();
-        return enderecos.stream()
-                .map(c-> mapper.map(c, DadosEndereco.class))
-                .collect(Collectors.toList());
+    public Page<DadosEndereco> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosEndereco::new);
+
     }
 
     public DadosEndereco salvar(@Valid DadosCadastroEndereco dados) {

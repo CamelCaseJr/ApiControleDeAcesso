@@ -14,9 +14,6 @@ public class DadosCadastroPessoa {
     private UUID id;
     private String nome;
     private String cpf;
-    private Contato contato;
     private String sexo;
-    private List<Secao> setor;
-    private Militar militar;
-    private List<Dependente> dependentes;
+
 }

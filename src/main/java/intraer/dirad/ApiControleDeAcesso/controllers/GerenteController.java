@@ -1,11 +1,15 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
+import intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes.DadosEndereco;
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosCadastroGerente;
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosGerente;
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.GerenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,8 +26,8 @@ public class GerenteController {
 
 
     @GetMapping
-    public ResponseEntity<List<DadosGerente>> listarTodos() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<Page<DadosGerente>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosGerente> findById(

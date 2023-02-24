@@ -5,13 +5,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosAtualizacaoDispositivoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosCadastroDispositivoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosDispositivosDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.DispositivoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.DispositivoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,11 +22,8 @@ public class DispositivoDeAcessoService {
     private final DispositivoRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosDispositivosDeAcesso> findAll() {
-        var dispositivoDeAcessos = repository.findAll();
-        return dispositivoDeAcessos.stream()
-        .map(d-> mapper.map(d, DadosDispositivosDeAcesso.class))
-        .collect(Collectors.toList());
+    public Page<DadosDispositivosDeAcesso> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosDispositivosDeAcesso::new);
         
     }
 

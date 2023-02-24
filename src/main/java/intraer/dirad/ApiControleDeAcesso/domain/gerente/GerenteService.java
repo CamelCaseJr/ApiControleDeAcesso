@@ -2,12 +2,12 @@ package intraer.dirad.ApiControleDeAcesso.domain.gerente;
 
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosCadastroGerente;
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosGerente;
-import intraer.dirad.ApiControleDeAcesso.domain.gerente.Gerente;
-import intraer.dirad.ApiControleDeAcesso.domain.gerente.GerenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +20,8 @@ public class GerenteService {
     private final GerenteRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosGerente>findAll() {
-        var gerentes = repository.findAll();
-        return gerentes.stream()
-                .map(c-> mapper.map(c, DadosGerente.class))
-                .collect(Collectors.toList());
+    public Page<DadosGerente> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosGerente::new);
     }
 
     public DadosGerente salvar(@Valid DadosCadastroGerente dados) {

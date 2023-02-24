@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosCadastroEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
-import intraer.dirad.ApiControleDeAcesso.domain.empresa.Empresa;
-import intraer.dirad.ApiControleDeAcesso.domain.empresa.EmpresaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +21,9 @@ public class EmpresaService {
     private final EmpresaRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosEmpresa> findAll() {
-        var empresas = repository.findAll();
-        return empresas.stream()
-                .map(c-> mapper.map(c, DadosEmpresa.class))
-                .collect(Collectors.toList());
+    public Page<DadosEmpresa> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosEmpresa::new);
+
     }
 
     public DadosEmpresa salvar(@Valid DadosCadastroEmpresa dados) {

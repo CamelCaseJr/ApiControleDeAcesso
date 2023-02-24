@@ -5,6 +5,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDepen
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosCadastroPessoa;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
+import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosCadastroSecao;
 import intraer.dirad.ApiControleDeAcesso.facade.PessoaFacade;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,15 +64,19 @@ public class PessoaService {
     @Transactional
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
         var pessoa = mapper.map(dados, Pessoa.class);
+
+        boolean present = repository.getPessoaRepository().findByCpf(pessoa.getCpf()).isPresent();
+        if (present) throw new EntityNotFoundException("cpf já está cadastrado");
+
         repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
     }
 
-    @Transactional
+ /*   @Transactional
     public DadosPessoa salvarpessoaFacade(DadosCadastroPessoa dados) {
         var pessoa = pessoaFacade.cria(dados);
         return mapper.map(pessoa, DadosPessoa.class);
-    }
+    }*/
 
 
     public void delete(UUID id) {
@@ -107,11 +114,10 @@ public class PessoaService {
     }
 
 
-    public DadosPessoa criarSecao(UUID id, DadosCadastroPessoa dado) {
+    public DadosPessoa criarSecao(UUID id, DadosCadastroSecao dado) {
             var pessoa = getPessoaPorId(id);
-            var setor = dado.getSetor().stream()
-                    .map(repository.getSecaoRepository()::save).toList();
-            pessoa.setSetor(setor);
+            var setor = mapper.map(dado, Secao.class);
+            pessoa.getSetor().add(setor);
             pessoa = repository.getPessoaRepository().save(pessoa);
             return mapper.map(pessoa, DadosPessoa.class);
 

@@ -21,7 +21,7 @@ public class PessoaFacade {
     private final RepositorioGlobal repository;
     private final ModelMapper mapper;
 
-    public Pessoa cria(DadosCadastroPessoa dados)
+    /*public Pessoa cria(DadosCadastroPessoa dados)
     {
         var contato = criarContato(dados);
         var militar = criarMilitar(dados);
@@ -60,7 +60,7 @@ public class PessoaFacade {
         pessoa.setSetor(secao);
         pessoa.setMilitar(militar);
         return repository.getPessoaRepository().save(pessoa);
-    }
+    }*/
 
 
 
