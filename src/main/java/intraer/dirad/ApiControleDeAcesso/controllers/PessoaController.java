@@ -8,6 +8,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastro
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosCadastroSecao;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -58,7 +59,7 @@ public class PessoaController {
     ){
         return ResponseEntity.ok().body(pessoaService.findByCpf(cpf));
     }
-
+    @Transactional
     @PostMapping()
     public ResponseEntity<DadosPessoa> cadastrar(
         @RequestBody @Valid DadosCadastroPessoa dados,
@@ -69,7 +70,7 @@ public class PessoaController {
         return ResponseEntity.created(uri).body(pessoa);
 
     }
-
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<DadosPessoa> atualizar(@PathVariable ("id") UUID id,
         @RequestBody @Valid DadosCadastroPessoa dado
@@ -77,6 +78,7 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoaService.atualizar(id,dado));
     }
 
+    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(
         @PathVariable ("id") UUID id
@@ -93,12 +95,14 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoaService.dependentes(id));
     }
 
+    @Transactional
     @PostMapping("/{id}/contatos")
     public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroContato dado)
     {
         return ResponseEntity.ok().body(pessoaService.salvarContatos(id,dado));
     }
+    @Transactional
     @PostMapping("/{id}/militares")
     public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroMilitar dado)
@@ -106,7 +110,7 @@ public class PessoaController {
 
         return ResponseEntity.ok().body(pessoaService.salvarMilitar(id,dado));
     }
-
+    @Transactional
     @PostMapping("/{id}/secoes")
     public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroSecao dado)

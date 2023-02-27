@@ -9,6 +9,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.enums.TipoDeIdentificacao;
 import intraer.dirad.ApiControleDeAcesso.domain.evento.Evento;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.visita.Visita;
 import lombok.Data;
 
 @Data
@@ -21,11 +22,27 @@ public class DadosVisita {
     private Pessoa autorizador;
     private Pessoa cadastrador;
     private LocalDateTime entrada;
-    private LocalDateTime dataDeCriacao = LocalDateTime.now();
+    private LocalDateTime dataDeCriacao;
     private LocalDateTime saida;
     private LocalDateTime horarioLimiteDeSaida;
     private TipoDeIdentificacao tipoDeIdentificacao;
-    private List<Evento> eventos = new ArrayList<>();
-    private List<Secao> locaisLiberados = new ArrayList<>();
-    
+    private List<Evento> eventos ;
+    private List<Secao> locaisLiberados ;
+    private String nome;
+
+    public DadosVisita(Visita visita) {
+        this.id = visita.getId();
+        this.visitado = visita.getVisitado();
+        this.visitante = visita.getVisitante();
+        this.autorizador = visita.getAutorizador();
+        this.cadastrador = visita.getCadastrador();
+        this.entrada = visita.getEntrada();
+        this.saida = visita.getSaida();
+        this.dataDeCriacao = visita.getDataDeCriacao();
+        this.horarioLimiteDeSaida = visita.getHorarioLimiteDeSaida();
+        this.tipoDeIdentificacao = visita.getTipoDeIdentificacao();
+        this.eventos = visita.getEventos();
+        this.locaisLiberados = visita.getLocaisLiberados();
+        this.nome = visita.getVisitante().getNome();
+    }
 }

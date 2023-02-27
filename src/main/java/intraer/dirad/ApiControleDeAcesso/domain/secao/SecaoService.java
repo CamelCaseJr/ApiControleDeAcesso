@@ -3,12 +3,12 @@ package intraer.dirad.ApiControleDeAcesso.domain.secao;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosAtualizacaoSecao;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosCadastroSecao;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosSecao;
-import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
-import intraer.dirad.ApiControleDeAcesso.domain.secao.SecaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +21,8 @@ public class SecaoService {
     private final SecaoRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosSecao>findAll() {
-        var secoes = repository.findAll();
-        return secoes.stream()
-                .map(c-> mapper.map(c, DadosSecao.class))
-                .collect(Collectors.toList());
+    public Page<DadosSecao> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosSecao::new);
     }
 
     public DadosSecao salvar(@Valid DadosCadastroSecao dados) {

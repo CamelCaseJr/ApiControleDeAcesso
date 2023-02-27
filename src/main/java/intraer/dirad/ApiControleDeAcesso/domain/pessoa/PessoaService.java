@@ -61,7 +61,7 @@ public class PessoaService {
         return repository.getPessoaRepository().findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("pessoa não encontrada"));
     }
-    @Transactional
+
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
         var pessoa = mapper.map(dados, Pessoa.class);
 

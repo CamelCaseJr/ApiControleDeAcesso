@@ -5,13 +5,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosAtualizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosMilitar;
-import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
-import intraer.dirad.ApiControleDeAcesso.domain.militar.MilitarRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,11 +23,8 @@ public class MilitarService {
     private final MilitarRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosMilitar> findAll() {
-        var militar = repository.findAll();
-        return militar.stream()
-        .map(m-> mapper.map(m, DadosMilitar.class))
-        .collect(Collectors.toList());
+    public Page<DadosMilitar> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosMilitar::new);
     }
 
     public DadosMilitar findById(UUID id) {

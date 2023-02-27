@@ -3,6 +3,10 @@ package intraer.dirad.ApiControleDeAcesso.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosOrganizacaoMilitar;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,8 +34,8 @@ public class PermissaoGerenteLocalAcessoController {
     private final PermissaoGerenteLocalService permissaoGerenteLocalService;
 
     @GetMapping
-    public ResponseEntity<List<DadosGerenteLocalAcesso>> listarTodos() {
-        return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll());
+    public ResponseEntity<Page<DadosGerenteLocalAcesso>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosGerenteLocalAcesso> findById(

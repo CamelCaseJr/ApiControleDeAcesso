@@ -1,5 +1,6 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
+import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.validacoes.DadosPontoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosAtualizacaoResponsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosCadastroResponsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosResponsavel;
@@ -7,6 +8,9 @@ import intraer.dirad.ApiControleDeAcesso.domain.responsavel.ResponsavelService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,8 +27,8 @@ public class ResponsavelController {
 
 
     @GetMapping
-    public ResponseEntity<List<DadosResponsavel>> listarTodos() {
-        return ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<Page<DadosResponsavel>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosResponsavel> findById(

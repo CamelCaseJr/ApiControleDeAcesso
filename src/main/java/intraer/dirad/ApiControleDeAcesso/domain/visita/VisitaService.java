@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.visita.validacoes.DadosCadastroVisita;
 import intraer.dirad.ApiControleDeAcesso.domain.visita.validacoes.DadosVisita;
-import intraer.dirad.ApiControleDeAcesso.domain.visita.Visita;
 import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -26,9 +27,8 @@ public class VisitaService {
 
 
 
-    public List<DadosVisita> findAll() {
-        var visitas = repository.getVisitaRepository().findAll();
-        return visitas.stream().map(v-> mapper.map(v, DadosVisita.class)).collect(Collectors.toList());
+    public Page<DadosVisita> findAll(Pageable paginacao) {
+        return repository.getVisitaRepository().findAll(paginacao).map(DadosVisita::new);
     }
 
     public DadosVisita findById(UUID id) {

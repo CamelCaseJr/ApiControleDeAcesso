@@ -17,10 +17,10 @@ public class DadosAtualizacaoVisita{
     private Pessoa autorizador;
     private Pessoa cadastrador;
     private LocalDateTime entrada;
-    private LocalDateTime dataDeCriacao = LocalDateTime.now();
+    private LocalDateTime dataDeCriacao;
     private LocalDateTime saida;
     private LocalDateTime horarioLimiteDeSaida;
     private TipoDeIdentificacao tipoDeIdentificacao;
-    private List<Evento> eventos = new ArrayList<>();
-    private List<Secao> locaisLiberados = new ArrayList<>();
+    private List<Evento> eventos;
+    private List<Secao> locaisLiberados ;
 }

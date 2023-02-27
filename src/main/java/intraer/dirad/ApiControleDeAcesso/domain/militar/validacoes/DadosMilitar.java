@@ -2,6 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes;
 
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.OrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import lombok.Data;
@@ -14,5 +15,13 @@ public class DadosMilitar{
     private String nomeDeGuerra;
     private OrganizacaoMilitar om;
     private String posto;
-    
+
+    public DadosMilitar(Militar militar) {
+        this.id = militar.getId();
+        this.saram = militar.getSaram();
+        this.pessoa = militar.getPessoa();
+        this.nomeDeGuerra = militar.getNomeDeGuerra();
+        this.om = militar.getOm();
+        this.posto = militar.getPosto();
+    }
 }

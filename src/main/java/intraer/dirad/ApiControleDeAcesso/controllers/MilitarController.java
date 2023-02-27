@@ -3,6 +3,10 @@ package intraer.dirad.ApiControleDeAcesso.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosGerente;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +34,8 @@ public class MilitarController {
     private final MilitarService militarService;
 
     @GetMapping
-    public ResponseEntity<List<DadosMilitar>> listarTodos() {
-        return ResponseEntity.ok().body(militarService.findAll());
+    public ResponseEntity<Page<DadosMilitar>> findAll(@PageableDefault(size = 10, sort = {"nomeDeGuerra"}) Pageable paginacao) {
+        return ResponseEntity.ok().body(militarService.findAll(paginacao));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DadosMilitar> findById(

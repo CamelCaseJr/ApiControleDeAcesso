@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.PontoDeAcesso;
-import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.PontoDeAcessoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.validacoes.DadosAtualizacaoPontoDeAcesso;
@@ -22,11 +22,8 @@ public class PontoDeAcessoService {
     private final PontoDeAcessoRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosPontoDeAcesso> findAll() {
-        var pontoDeAcesso = repository.findAll();
-        return pontoDeAcesso.stream()
-                .map(p-> mapper.map(p, DadosPontoDeAcesso.class))
-                .collect(Collectors.toList());
+    public Page<DadosPontoDeAcesso> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosPontoDeAcesso::new);
     }
 
     public DadosPontoDeAcesso findById(UUID id) {

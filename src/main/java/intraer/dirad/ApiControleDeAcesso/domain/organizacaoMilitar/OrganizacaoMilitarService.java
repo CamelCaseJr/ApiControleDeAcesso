@@ -3,12 +3,12 @@ package intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosAtualizacaoOrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosOrganizacaoMilitar;
-import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.OrganizacaoMilitar;
-import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.OMRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +21,9 @@ public class OrganizacaoMilitarService {
     private final OMRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosOrganizacaoMilitar> findAll() {
-       var OM = repository.findAll();
-       return OM.stream()
-               .map(om -> mapper.map(om, DadosOrganizacaoMilitar.class))
-               .collect(Collectors.toList());
+    public Page<DadosOrganizacaoMilitar> findAll(Pageable paginacao) {
+       return  repository.findAll(paginacao).map(DadosOrganizacaoMilitar::new);
+
     }
 
     public DadosOrganizacaoMilitar findById(UUID id) {

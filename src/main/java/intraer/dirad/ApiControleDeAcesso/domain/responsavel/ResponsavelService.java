@@ -3,12 +3,12 @@ package intraer.dirad.ApiControleDeAcesso.domain.responsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosAtualizacaoResponsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosCadastroResponsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.validacoes.DadosResponsavel;
-import intraer.dirad.ApiControleDeAcesso.domain.responsavel.Responsavel;
-import intraer.dirad.ApiControleDeAcesso.domain.responsavel.ResponsavelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +21,9 @@ public class ResponsavelService {
     private final ResponsavelRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosResponsavel>findAll() {
-        var responsaveis = repository.findAll();
-        return responsaveis.stream()
-                .map(c-> mapper.map(c, DadosResponsavel.class))
-                .collect(Collectors.toList());
+    public Page<DadosResponsavel> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosResponsavel::new);
+
     }
 
     public DadosResponsavel salvar(@Valid DadosCadastroResponsavel dados) {

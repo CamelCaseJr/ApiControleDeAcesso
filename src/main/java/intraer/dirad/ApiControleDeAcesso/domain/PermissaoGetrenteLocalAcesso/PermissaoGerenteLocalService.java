@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.PermissaoGerenteLocalAcesso;
-import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.PermGerentLocalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.validacoes.DadosAtualizacaoGerenteLocalAcesso;
@@ -22,11 +22,9 @@ public class PermissaoGerenteLocalService {
     private final PermGerentLocalRepository repository;
     private final ModelMapper mapper;
 
-    public List<DadosGerenteLocalAcesso> findAll() {
-        var gerente = repository.findAll();
-        return gerente.stream()
-                .map(g-> mapper.map(g, DadosGerenteLocalAcesso.class))
-                .collect(Collectors.toList());
+    public Page<DadosGerenteLocalAcesso> findAll(Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosGerenteLocalAcesso::new);
+
     }
 
     public DadosGerenteLocalAcesso findById(UUID id) {
