@@ -26,7 +26,7 @@ public class EmpresaController {
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosEmpresa>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosEmpresa>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")

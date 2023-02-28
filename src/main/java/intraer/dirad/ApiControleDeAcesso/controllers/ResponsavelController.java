@@ -27,7 +27,7 @@ public class ResponsavelController {
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosResponsavel>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosResponsavel>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")

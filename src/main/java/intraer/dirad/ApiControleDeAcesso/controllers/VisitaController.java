@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(("/pontos-de-acesso"))
+@RequestMapping(("/visitas"))
 @AllArgsConstructor
 public class VisitaController {
 
@@ -26,7 +26,7 @@ public class VisitaController {
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosVisita>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosVisita>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")

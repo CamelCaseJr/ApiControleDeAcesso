@@ -26,7 +26,7 @@ public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;
     @GetMapping
-    public ResponseEntity<Page<DadosColaborador>> findAll(@PageableDefault(size = 10, sort = {"pessoaNome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosColaborador>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(colaboradorService.findAll(paginacao));
     }
     @GetMapping("/{id}")

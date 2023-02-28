@@ -26,7 +26,7 @@ public class EnderecoController {
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosEndereco>> findAll(@PageableDefault(size = 10, sort = {"cidade"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosEndereco>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")

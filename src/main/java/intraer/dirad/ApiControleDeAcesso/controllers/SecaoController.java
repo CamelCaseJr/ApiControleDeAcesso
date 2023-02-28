@@ -27,7 +27,7 @@ public class SecaoController {
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosSecao>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosSecao>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
     @GetMapping("/{id}")

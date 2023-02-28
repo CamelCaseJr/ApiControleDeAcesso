@@ -15,5 +15,4 @@ public class DadosCadastroPessoa {
     private String nome;
     private String cpf;
     private String sexo;
-
 }

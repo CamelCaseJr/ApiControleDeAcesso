@@ -27,7 +27,7 @@ public class DependenteController {
         this.dependenteService = dependenteService;
     }
     @GetMapping
-    public ResponseEntity<Page<DadosDependente>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosDependente>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(dependenteService.findAll(paginacao));
     }
     @GetMapping("/{id}")

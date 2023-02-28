@@ -35,7 +35,7 @@ public class PessoaController {
     }
 
     @GetMapping()
-    public ResponseEntity<Page<DadosPessoa>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosPessoa>> findAll(Pageable paginacao) {
 
         return ResponseEntity.ok().body(pessoaService.findAll(paginacao));
     }

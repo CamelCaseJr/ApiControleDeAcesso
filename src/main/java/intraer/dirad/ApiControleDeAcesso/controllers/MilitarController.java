@@ -34,7 +34,7 @@ public class MilitarController {
     private final MilitarService militarService;
 
     @GetMapping
-    public ResponseEntity<Page<DadosMilitar>> findAll(@PageableDefault(size = 10, sort = {"nomeDeGuerra"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosMilitar>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(militarService.findAll(paginacao));
     }
     @GetMapping("/{id}")

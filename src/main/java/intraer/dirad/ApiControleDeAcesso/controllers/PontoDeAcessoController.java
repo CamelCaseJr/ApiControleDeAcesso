@@ -34,7 +34,7 @@ public class PontoDeAcessoController {
     private final PontoDeAcessoService pontoDeAcessoService;
 
     @GetMapping
-    public ResponseEntity<Page<DadosPontoDeAcesso>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosPontoDeAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(pontoDeAcessoService.findAll(paginacao));
     }
     @GetMapping("/{id}")

@@ -34,7 +34,7 @@ public class DispositivoDeAcessoController {
         this.dispositivoDeAcessoService = dispositivoDeAcessoService;
     }
     @GetMapping
-    public ResponseEntity<Page<DadosDispositivosDeAcesso>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosDispositivosDeAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(dispositivoDeAcessoService.findAll(paginacao));
     }
     @GetMapping("/{id}")

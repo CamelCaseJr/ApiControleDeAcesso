@@ -34,7 +34,7 @@ public class PermissaoGerenteLocalAcessoController {
     private final PermissaoGerenteLocalService permissaoGerenteLocalService;
 
     @GetMapping
-    public ResponseEntity<Page<DadosGerenteLocalAcesso>> findAll(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosGerenteLocalAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll(paginacao));
     }
     @GetMapping("/{id}")
