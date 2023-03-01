@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ public class DispositivoDeAcessoController {
         this.dispositivoDeAcessoService = dispositivoDeAcessoService;
     }
     @GetMapping
+    @Cacheable(value = "listarDispositivosDeAcessos")
     public ResponseEntity<Page<DadosDispositivosDeAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(dispositivoDeAcessoService.findAll(paginacao));
     }
@@ -46,6 +49,7 @@ public class DispositivoDeAcessoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listarDispositivosDeAcessos", allEntries = true)
     public ResponseEntity<DadosDispositivosDeAcesso> cadastrar(
         @RequestBody @Valid DadosCadastroDispositivoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
@@ -57,6 +61,7 @@ public class DispositivoDeAcessoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarDispositivosDeAcessos", allEntries = true)
     public ResponseEntity<DadosDispositivosDeAcesso> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoDispositivoDeAcesso dado) {
     
         return ResponseEntity.ok().body(dispositivoDeAcessoService.atualizar(id,dado));
@@ -64,6 +69,7 @@ public class DispositivoDeAcessoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarDispositivosDeAcessos", allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         dispositivoDeAcessoService.delete(id);
         return ResponseEntity.noContent().build();

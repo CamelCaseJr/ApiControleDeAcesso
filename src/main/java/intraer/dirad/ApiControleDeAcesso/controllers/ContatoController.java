@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosColaborador;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -35,6 +37,7 @@ public class ContatoController {
     }
 
     @GetMapping
+    @Cacheable(value = "findContatos")
     public ResponseEntity<Page<DadosContato>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(contatoService.findAll(paginacao));
     }
@@ -48,6 +51,7 @@ public class ContatoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "findContatos", allEntries = true )
     public ResponseEntity<DadosContato> cadastrar(
         @RequestBody @Valid DadosCadastroContato dados, UriComponentsBuilder uriBuilder
     ) {
@@ -59,6 +63,7 @@ public class ContatoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "findContatos", allEntries = true )
     public ResponseEntity<DadosContato> atualizar(
             @PathVariable UUID id,
             @RequestBody @Valid DadosAtualizacaoContato dado,
@@ -70,6 +75,7 @@ public class ContatoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "findContatos", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         contatoService.delete(id);
         return ResponseEntity.noContent().build();

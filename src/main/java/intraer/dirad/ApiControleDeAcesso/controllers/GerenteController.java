@@ -7,6 +7,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.gerente.GerenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +28,7 @@ public class GerenteController {
 
 
     @GetMapping
+    @Cacheable(value = "listarGerentes")
     public ResponseEntity<Page<DadosGerente>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -38,6 +41,7 @@ public class GerenteController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listarGerentes", allEntries = true)
     public ResponseEntity<DadosGerente> cadastrar(
             @RequestBody @Valid DadosCadastroGerente dados, UriComponentsBuilder uriBuilder
     ) {
@@ -49,6 +53,7 @@ public class GerenteController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarGerentes", allEntries = true)
     public ResponseEntity<DadosGerente> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroGerente dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -56,6 +61,7 @@ public class GerenteController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarGerentes", allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

@@ -7,6 +7,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDepen
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,6 +29,7 @@ public class DependenteController {
         this.dependenteService = dependenteService;
     }
     @GetMapping
+    @Cacheable(value = "listarDependentes")
     public ResponseEntity<Page<DadosDependente>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(dependenteService.findAll(paginacao));
     }
@@ -39,6 +42,7 @@ public class DependenteController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listarDependentes", allEntries = true )
     public ResponseEntity<DadosDependente> cadastrar(
         @RequestBody @Valid DadosCadastroDependente dados, UriComponentsBuilder uriBuilder
     ) {
@@ -50,6 +54,7 @@ public class DependenteController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarDependentes", allEntries = true )
     public ResponseEntity<DadosDependente> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosDeAtualizacaoDependente dado) {
     
         return ResponseEntity.ok().body(dependenteService.atualizar(id,dado));
@@ -57,6 +62,7 @@ public class DependenteController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarDependentes", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         dependenteService.delete(id);
         return ResponseEntity.noContent().build();

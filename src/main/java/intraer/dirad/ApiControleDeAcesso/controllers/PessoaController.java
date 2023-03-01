@@ -5,10 +5,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastroContato;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosCadastroDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes.DadosCadastroSecao;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -35,12 +38,14 @@ public class PessoaController {
     }
 
     @GetMapping()
+    @Cacheable(value = "listaDePessoas")
     public ResponseEntity<Page<DadosPessoa>> findAll(Pageable paginacao) {
 
         return ResponseEntity.ok().body(pessoaService.findAll(paginacao));
     }
 
     @GetMapping("/{id}")
+    @Cacheable(value = "findPessoaById")
     public ResponseEntity<DadosPessoa> findById(
         @PathVariable("id") UUID id
     ){
@@ -61,6 +66,7 @@ public class PessoaController {
     }
     @Transactional
     @PostMapping()
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> cadastrar(
         @RequestBody @Valid DadosCadastroPessoa dados,
         UriComponentsBuilder uriBuilder
@@ -72,6 +78,7 @@ public class PessoaController {
     }
     @Transactional
     @PutMapping("/{id}")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> atualizar(@PathVariable ("id") UUID id,
         @RequestBody @Valid DadosCadastroPessoa dado
     ){
@@ -80,6 +87,7 @@ public class PessoaController {
 
     @Transactional
     @DeleteMapping("/{id}")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<String> deletar(
         @PathVariable ("id") UUID id
     ) {
@@ -94,9 +102,17 @@ public class PessoaController {
     ){
         return ResponseEntity.ok().body(pessoaService.dependentes(id));
     }
+    @PostMapping("/{id}/dependentes")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    public ResponseEntity<DadosPessoa> salvarDependentes(
+            @PathVariable("id") UUID id, @RequestBody @Valid DadosCadastroDependente dependente
+    ){
+        return ResponseEntity.ok().body(pessoaService.salvarDependentes(id,dependente ));
+    }
 
     @Transactional
     @PostMapping("/{id}/contatos")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroContato dado)
     {
@@ -104,6 +120,7 @@ public class PessoaController {
     }
     @Transactional
     @PostMapping("/{id}/militares")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroMilitar dado)
     {
@@ -112,6 +129,7 @@ public class PessoaController {
     }
     @Transactional
     @PostMapping("/{id}/secoes")
+    @CacheEvict(value = "listaDePessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroSecao dado)
     {

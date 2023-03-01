@@ -7,6 +7,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.endereco.EnderecoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +28,7 @@ public class EnderecoController {
 
 
     @GetMapping
+    @Cacheable(value = "listarEnderecos")
     public ResponseEntity<Page<DadosEndereco>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -38,6 +41,7 @@ public class EnderecoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listarEnderecos", allEntries = true)
     public ResponseEntity<DadosEndereco> cadastrar(
             @RequestBody @Valid DadosCadastroEndereco dados, UriComponentsBuilder uriBuilder
     ) {
@@ -49,6 +53,7 @@ public class EnderecoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarEnderecos", allEntries = true)
     public ResponseEntity<DadosEndereco> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroEndereco dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -56,6 +61,7 @@ public class EnderecoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listarEnderecos", allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

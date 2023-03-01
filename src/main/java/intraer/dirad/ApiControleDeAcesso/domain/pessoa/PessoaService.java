@@ -1,6 +1,8 @@
 package intraer.dirad.ApiControleDeAcesso.domain.pessoa;
 
 import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastroContato;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.Dependente;
+import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosCadastroDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.validacoes.DadosDependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosCadastroPessoa;
@@ -127,5 +129,13 @@ public class PessoaService {
         var pessoa = repository.getPessoaRepository().findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("pessoa não encontrada"));
         return pessoa.getDependentes().stream().map(d -> mapper.map(d, DadosDependente.class)).toList();
+    }
+
+    public DadosPessoa salvarDependentes(UUID id, DadosCadastroDependente dados) {
+        var pessoa = getPessoaPorId(id);
+        var dependente = mapper.map(dados, Dependente.class);
+        pessoa.getDependentes().add(dependente);
+        pessoa = repository.getPessoaRepository().save(pessoa);
+        return mapper.map(pessoa, DadosPessoa.class);
     }
 }
