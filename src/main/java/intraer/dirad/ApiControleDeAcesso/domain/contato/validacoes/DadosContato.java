@@ -10,6 +10,7 @@ import lombok.Data;
 public class DadosContato{
     private UUID id;
     private TipoContato tipo;
+
     private String valorDoContato;
 
     public DadosContato(Contato contato) {

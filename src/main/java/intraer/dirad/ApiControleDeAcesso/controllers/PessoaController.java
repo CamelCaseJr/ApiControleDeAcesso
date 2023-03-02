@@ -87,7 +87,7 @@ public class PessoaController {
 
     @Transactional
     @DeleteMapping("/{id}")
-    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    @CacheEvict(value = "lista-de-pessoas", allEntries = true )
     public ResponseEntity<String> deletar(
         @PathVariable ("id") UUID id
     ) {
@@ -103,7 +103,7 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoaService.dependentes(id));
     }
     @PostMapping("/{id}/dependentes")
-    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    @CacheEvict(value = "lista-de-pessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> salvarDependentes(
             @PathVariable("id") UUID id, @RequestBody @Valid DadosCadastroDependente dependente
     ){
@@ -112,7 +112,7 @@ public class PessoaController {
 
     @Transactional
     @PostMapping("/{id}/contatos")
-    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    @CacheEvict(value = "lista-de-pessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> salvarContatos(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroContato dado)
     {
@@ -120,7 +120,7 @@ public class PessoaController {
     }
     @Transactional
     @PostMapping("/{id}/militares")
-    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    @CacheEvict(value = "lista-de-pessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> salvarMilitar(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroMilitar dado)
     {
@@ -129,7 +129,7 @@ public class PessoaController {
     }
     @Transactional
     @PostMapping("/{id}/secoes")
-    @CacheEvict(value = "listaDePessoas", allEntries = true )
+    @CacheEvict(value = "lista-de-pessoas", allEntries = true )
     public ResponseEntity<DadosPessoa> criarSecao(@PathVariable ("id") UUID id,
                                                 @RequestBody @Valid DadosCadastroSecao dado)
     {

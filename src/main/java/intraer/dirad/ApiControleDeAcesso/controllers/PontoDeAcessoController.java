@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.validacoes.DadosGerenteLocalAcesso;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ public class PontoDeAcessoController {
     private final PontoDeAcessoService pontoDeAcessoService;
 
     @GetMapping
+    @Cacheable(value = "lista-pontos-de-acesso")
     public ResponseEntity<Page<DadosPontoDeAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(pontoDeAcessoService.findAll(paginacao));
     }
@@ -46,6 +49,7 @@ public class PontoDeAcessoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-pontos-de-acesso", allEntries = true )
     public ResponseEntity<DadosPontoDeAcesso> cadastrar(
         @RequestBody @Valid DadosCadastroPontoDeAcesso dados, UriComponentsBuilder uriBuilder
     ) {
@@ -57,6 +61,7 @@ public class PontoDeAcessoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-pontos-de-acesso", allEntries = true )
     public ResponseEntity<DadosPontoDeAcesso> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoPontoDeAcesso dado) {
     
         return ResponseEntity.ok().body(pontoDeAcessoService.atualizar(id,dado));
@@ -64,6 +69,7 @@ public class PontoDeAcessoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-pontos-de-acesso", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         pontoDeAcessoService.delete(id);
         return ResponseEntity.noContent().build();

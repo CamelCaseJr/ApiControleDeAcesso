@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosMilitar;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ public class OrganizacaoMilitarController {
     private final OrganizacaoMilitarService organizacaoMilitarService;
 
     @GetMapping
+    @Cacheable(value = "listaOrganizacoes-militares")
     public ResponseEntity<Page<DadosOrganizacaoMilitar>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(organizacaoMilitarService.findAll(paginacao));
     }
@@ -46,6 +49,7 @@ public class OrganizacaoMilitarController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listaOrganizacoes-militares",allEntries = true)
     public ResponseEntity<DadosOrganizacaoMilitar> cadastrar(
         @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
     ) {
@@ -57,6 +61,7 @@ public class OrganizacaoMilitarController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listaOrganizacoes-militares",allEntries = true)
     public ResponseEntity<DadosOrganizacaoMilitar> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoOrganizacaoMilitar dado) {
     
         return ResponseEntity.ok().body(organizacaoMilitarService.atualizar(id,dado));
@@ -64,6 +69,7 @@ public class OrganizacaoMilitarController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listaOrganizacoes-militares",allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         organizacaoMilitarService.delete(id);
         return ResponseEntity.noContent().build();

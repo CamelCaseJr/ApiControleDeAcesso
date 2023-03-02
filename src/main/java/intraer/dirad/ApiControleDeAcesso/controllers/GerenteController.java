@@ -28,7 +28,7 @@ public class GerenteController {
 
 
     @GetMapping
-    @Cacheable(value = "listarGerentes")
+    @Cacheable(value = "lista-gerentes")
     public ResponseEntity<Page<DadosGerente>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -41,7 +41,7 @@ public class GerenteController {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = "listarGerentes", allEntries = true)
+    @CacheEvict(value = "lista-gerentes", allEntries = true)
     public ResponseEntity<DadosGerente> cadastrar(
             @RequestBody @Valid DadosCadastroGerente dados, UriComponentsBuilder uriBuilder
     ) {
@@ -53,7 +53,7 @@ public class GerenteController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarGerentes", allEntries = true)
+    @CacheEvict(value = "lista-gerentes", allEntries = true)
     public ResponseEntity<DadosGerente> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroGerente dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -61,7 +61,7 @@ public class GerenteController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarGerentes", allEntries = true)
+    @CacheEvict(value = "lista-gerentes", allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

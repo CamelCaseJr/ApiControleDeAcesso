@@ -42,7 +42,7 @@ public class DependenteController {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = "listarDependentes", allEntries = true )
+    @CacheEvict(value = "lista-dependentes", allEntries = true )
     public ResponseEntity<DadosDependente> cadastrar(
         @RequestBody @Valid DadosCadastroDependente dados, UriComponentsBuilder uriBuilder
     ) {
@@ -54,7 +54,7 @@ public class DependenteController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarDependentes", allEntries = true )
+    @CacheEvict(value = "lista-dependentes", allEntries = true )
     public ResponseEntity<DadosDependente> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosDeAtualizacaoDependente dado) {
     
         return ResponseEntity.ok().body(dependenteService.atualizar(id,dado));
@@ -62,7 +62,7 @@ public class DependenteController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarDependentes", allEntries = true )
+    @CacheEvict(value = "lista-dependentes", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         dependenteService.delete(id);
         return ResponseEntity.noContent().build();

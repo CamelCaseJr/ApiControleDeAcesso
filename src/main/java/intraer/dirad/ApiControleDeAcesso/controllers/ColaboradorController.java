@@ -28,7 +28,7 @@ public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;
     @GetMapping
-    @Cacheable(value = "listaDeColaboradores")
+    @Cacheable(value = "lista-de-colaboradores")
     public ResponseEntity<Page<DadosColaborador>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(colaboradorService.findAll(paginacao));
     }
@@ -41,7 +41,7 @@ public class ColaboradorController {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = "listaDeColaboradores", allEntries = true )
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity<DadosColaborador> cadastrar(
         @RequestBody @Valid DadosCadastroColaborador dados, UriComponentsBuilder uriBuilder
     ) {
@@ -53,7 +53,7 @@ public class ColaboradorController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listaDeColaboradores", allEntries = true )
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity<DadosColaborador> atualizar(
             @PathVariable UUID id,
             @RequestBody @Valid DadosAtualizacaoColaborador dado,
@@ -64,7 +64,7 @@ public class ColaboradorController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listaDeColaboradores", allEntries = true )
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         colaboradorService.delete(id);
         return ResponseEntity.noContent().build();

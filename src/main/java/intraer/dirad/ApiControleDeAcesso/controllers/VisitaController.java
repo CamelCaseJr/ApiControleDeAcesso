@@ -7,6 +7,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.visita.VisitaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,6 +28,7 @@ public class VisitaController {
 
 
     @GetMapping
+    @Cacheable(value = "lista-visitas")
     public ResponseEntity<Page<DadosVisita>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -38,6 +41,7 @@ public class VisitaController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-visitas", allEntries = true )
     public ResponseEntity<DadosVisita> cadastrar(
             @RequestBody @Valid DadosCadastroVisita dados, UriComponentsBuilder uriBuilder
     ) {
@@ -49,6 +53,7 @@ public class VisitaController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-visitas", allEntries = true )
     public ResponseEntity<DadosVisita> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroVisita dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -56,6 +61,7 @@ public class VisitaController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-visitas", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

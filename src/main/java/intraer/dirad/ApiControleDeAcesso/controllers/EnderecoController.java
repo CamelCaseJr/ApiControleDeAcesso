@@ -28,7 +28,7 @@ public class EnderecoController {
 
 
     @GetMapping
-    @Cacheable(value = "listarEnderecos")
+    @Cacheable(value = "lista-enderecos")
     public ResponseEntity<Page<DadosEndereco>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -41,7 +41,7 @@ public class EnderecoController {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = "listarEnderecos", allEntries = true)
+    @CacheEvict(value = "lista-enderecos", allEntries = true)
     public ResponseEntity<DadosEndereco> cadastrar(
             @RequestBody @Valid DadosCadastroEndereco dados, UriComponentsBuilder uriBuilder
     ) {
@@ -53,7 +53,7 @@ public class EnderecoController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarEnderecos", allEntries = true)
+    @CacheEvict(value = "lista-enderecos", allEntries = true)
     public ResponseEntity<DadosEndereco> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroEndereco dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -61,7 +61,7 @@ public class EnderecoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "listarEnderecos", allEntries = true)
+    @CacheEvict(value = "lista-enderecos", allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

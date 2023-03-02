@@ -8,6 +8,8 @@ import intraer.dirad.ApiControleDeAcesso.domain.responsavel.ResponsavelService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,6 +29,7 @@ public class ResponsavelController {
 
 
     @GetMapping
+    @Cacheable(value = "lista-responsaveis")
     public ResponseEntity<Page<DadosResponsavel>> findAll(Pageable paginacao) {
         return ResponseEntity.ok().body(service.findAll(paginacao));
     }
@@ -39,6 +42,7 @@ public class ResponsavelController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-responsaveis", allEntries = true )
     public ResponseEntity<DadosResponsavel> cadastrar(
             @RequestBody @Valid DadosCadastroResponsavel dados, UriComponentsBuilder uriBuilder
     ) {
@@ -50,6 +54,7 @@ public class ResponsavelController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-responsaveis", allEntries = true )
     public ResponseEntity<DadosResponsavel> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoResponsavel dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
@@ -57,6 +62,7 @@ public class ResponsavelController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-responsaveis", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

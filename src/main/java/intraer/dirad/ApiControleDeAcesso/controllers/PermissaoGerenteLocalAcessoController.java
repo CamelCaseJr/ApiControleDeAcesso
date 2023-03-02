@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosOrganizacaoMilitar;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ public class PermissaoGerenteLocalAcessoController {
     private final PermissaoGerenteLocalService permissaoGerenteLocalService;
 
     @GetMapping
+    @Cacheable(value = "lista-permissoes-gerente-local")
     public ResponseEntity<Page<DadosGerenteLocalAcesso>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll(paginacao));
     }
@@ -46,6 +49,7 @@ public class PermissaoGerenteLocalAcessoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity<DadosGerenteLocalAcesso> cadastrar(
         @RequestBody @Valid DadosCadastroGerenteLocalAcesso dados, UriComponentsBuilder uriBuilder
     ) {
@@ -57,6 +61,7 @@ public class PermissaoGerenteLocalAcessoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity<DadosGerenteLocalAcesso> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoGerenteLocalAcesso dado) {
     
         return ResponseEntity.ok().body(permissaoGerenteLocalService.atualizar(id,dado));
@@ -64,6 +69,7 @@ public class PermissaoGerenteLocalAcessoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         permissaoGerenteLocalService.delete(id);
         return ResponseEntity.noContent().build();

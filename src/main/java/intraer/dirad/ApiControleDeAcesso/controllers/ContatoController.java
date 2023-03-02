@@ -37,7 +37,7 @@ public class ContatoController {
     }
 
     @GetMapping
-    @Cacheable(value = "findContatos")
+    @Cacheable(value = "lista-contatos")
     public ResponseEntity<Page<DadosContato>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(contatoService.findAll(paginacao));
     }
@@ -51,7 +51,7 @@ public class ContatoController {
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = "findContatos", allEntries = true )
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity<DadosContato> cadastrar(
         @RequestBody @Valid DadosCadastroContato dados, UriComponentsBuilder uriBuilder
     ) {
@@ -63,7 +63,7 @@ public class ContatoController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "findContatos", allEntries = true )
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity<DadosContato> atualizar(
             @PathVariable UUID id,
             @RequestBody @Valid DadosAtualizacaoContato dado,
@@ -75,7 +75,7 @@ public class ContatoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
-    @CacheEvict(value = "findContatos", allEntries = true )
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         contatoService.delete(id);
         return ResponseEntity.noContent().build();

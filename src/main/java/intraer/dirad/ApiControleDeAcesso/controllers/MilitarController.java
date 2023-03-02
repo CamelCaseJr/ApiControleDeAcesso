@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes.DadosGerente;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,7 @@ public class MilitarController {
     private final MilitarService militarService;
 
     @GetMapping
+    @Cacheable(value = "listaMilitares")
     public ResponseEntity<Page<DadosMilitar>> findAll( Pageable paginacao) {
         return ResponseEntity.ok().body(militarService.findAll(paginacao));
     }
@@ -46,6 +49,7 @@ public class MilitarController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listaMilitares",allEntries = true)
     public ResponseEntity<DadosMilitar> cadastrar(
         @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
     ) {
@@ -57,6 +61,7 @@ public class MilitarController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listaMilitares",allEntries = true)
     public ResponseEntity<DadosMilitar> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoMilitar dado) {
     
         return ResponseEntity.ok().body(militarService.atualizar(id,dado));
@@ -64,6 +69,7 @@ public class MilitarController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "listaMilitares",allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         militarService.delete(id);
         return ResponseEntity.noContent().build();
