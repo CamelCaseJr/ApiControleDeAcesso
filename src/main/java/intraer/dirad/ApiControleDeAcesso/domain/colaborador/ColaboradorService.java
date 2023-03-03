@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,18 +23,19 @@ import jakarta.validation.Valid;
 @Service
 @AllArgsConstructor
 public class ColaboradorService {
-    private final  repository;
+    private final RepositorioGlobal repository;
     private final ModelMapper mapper;
 
     public Page<DadosColaborador> findAll(Pageable pageable) {
-        return  repository.findAll(pageable).map(DadosColaborador::new);
+        return  repository.getColaboradorRepository().findAll(pageable).map(DadosColaborador::new);
     }
 
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
         var colaborador = mapper.map(dado, Colaborador.class);
         var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
-
-        repository.save(colaborador);
+        pessoa = repository.getPessoaRepository().save(pessoa);
+        colaborador.setPessoa(pessoa);
+        repository.getColaboradorRepository().save(colaborador);
 
         var salvo= mapper.map(colaborador, DadosColaborador.class);
         return salvo;
@@ -48,18 +50,18 @@ public class ColaboradorService {
 
         Colaborador colaborador = mapper.map(dado,Colaborador.class);
         colaborador.setId(id);
-        colaborador = repository.save(colaborador);
+        colaborador = repository.getColaboradorRepository().save(colaborador);
         return mapper.map(colaborador, DadosColaborador.class);
 
 
     }
 
     public void delete(UUID id) {
-        repository.deleteById(id);
+        repository.getColaboradorRepository().deleteById(id);
     }
 
     public DadosColaborador findById(UUID id) {
-        var colaboradorOpitinal = repository.findById(id);
+        var colaboradorOpitinal = repository.getColaboradorRepository().findById(id);
         Colaborador entity = colaboradorOpitinal
                 .orElseThrow(() -> new EntityNotFoundException("People not found"));
         return mapper.map(entity, DadosColaborador.class);
