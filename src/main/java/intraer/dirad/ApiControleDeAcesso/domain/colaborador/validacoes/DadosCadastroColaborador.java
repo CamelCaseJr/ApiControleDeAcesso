@@ -1,15 +1,17 @@
 package intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes;
 
-import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
-import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosPessoa;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosCadastroPessoa;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.UUID;
 @Data
 public class DadosCadastroColaborador {
-    @NotBlank(message = "field cannot be empty")
-    private DadosPessoa pessoa;
-    @NotBlank(message = "field cannot be empty")
-    private DadosEmpresa empresa;
+    @NotNull
+    DadosCadastroPessoa pessoa;
+
 }

@@ -17,7 +17,7 @@ public class DadosEmpresa {
     private String nome;
     private String cnpj;
     private Contato contato;
-    private List<Endereco> endereco = new ArrayList();
+    private List<Endereco> endereco = new ArrayList<>();
 
     public DadosEmpresa(Empresa empresa) {
         this.id = empresa.getId();

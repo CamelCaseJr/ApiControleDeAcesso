@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,7 +22,7 @@ import jakarta.validation.Valid;
 @Service
 @AllArgsConstructor
 public class ColaboradorService {
-    private final ColaboradorRepository repository;
+    private final  repository;
     private final ModelMapper mapper;
 
     public Page<DadosColaborador> findAll(Pageable pageable) {
@@ -29,9 +30,13 @@ public class ColaboradorService {
     }
 
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
-        Colaborador colaborador = mapper.map(dado, Colaborador.class);
+        var colaborador = mapper.map(dado, Colaborador.class);
+        var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
+
         repository.save(colaborador);
-        return mapper.map(colaborador, DadosColaborador.class);
+
+        var salvo= mapper.map(colaborador, DadosColaborador.class);
+        return salvo;
 
     }
 

@@ -10,8 +10,6 @@ import lombok.Data;
 @Data
 public class DadosAtualizacaoColaborador {
     UUID id;
-    @NotBlank(message = "field cannot be empty")
     DadosCadastroPessoa pessoa;
-    @NotBlank(message = "field cannot be empty")
     DadosCadastroEmpresa empresa;
 }
