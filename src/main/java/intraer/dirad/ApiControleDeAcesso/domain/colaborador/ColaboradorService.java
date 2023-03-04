@@ -31,14 +31,17 @@ public class ColaboradorService {
     }
 
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
-        var colaborador = mapper.map(dado, Colaborador.class);
-        var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
-        pessoa = repository.getPessoaRepository().save(pessoa);
+        var pessoa = repository.getPessoaRepository().findById(dado.getIdpessoa())
+                .orElseThrow(()-> new EntityNotFoundException("Não foi possive encontrar a pessoa com id informado"));
+        var empresa = repository.getEmpresaRepository().findById(dado.getIdEmpresa())
+                .orElseThrow(()-> new EntityNotFoundException("Não foi possive encontrar a empresa com id informado"));
+        var colaborador = new Colaborador();
+
         colaborador.setPessoa(pessoa);
+        colaborador.setEmpresa(empresa);
         repository.getColaboradorRepository().save(colaborador);
 
-        var salvo= mapper.map(colaborador, DadosColaborador.class);
-        return salvo;
+        return mapper.map(colaborador, DadosColaborador.class);
 
     }
 

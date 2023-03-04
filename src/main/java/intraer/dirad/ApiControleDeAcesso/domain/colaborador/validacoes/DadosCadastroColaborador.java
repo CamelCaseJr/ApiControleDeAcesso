@@ -9,9 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 public class DadosCadastroColaborador {
-    @NotNull
-    DadosCadastroPessoa pessoa;
+    @NotBlank
+    UUID idpessoa;
+    @NotBlank
+    UUID idEmpresa;
 
 }

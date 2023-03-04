@@ -4,6 +4,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.PontoDeAcessoRepos
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.ContatoRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteRepository;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.EmpresaRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.MilitarRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.OMRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.PessoaRepository;
@@ -26,5 +27,6 @@ public class RepositorioGlobal {
     private final SecaoRepository secaoRepository;
     private final PessoaRepository pessoaRepository;
     private final VisitaRepository visitaRepository;
+    private final EmpresaRepository empresaRepository;
 
 }
