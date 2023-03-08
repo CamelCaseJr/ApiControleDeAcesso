@@ -52,13 +52,13 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoaService.findById(id));
     }
 
-    @GetMapping("/{nome}")
-    public ResponseEntity<DadosPessoa> findByNome(
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<DadosPessoa>> findByNome(
             @PathVariable("nome") String nome
     ){
         return ResponseEntity.ok().body(pessoaService.findByNome(nome));
     }
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<DadosPessoa> findByCpf(
             @PathVariable("cpf") String cpf
     ){

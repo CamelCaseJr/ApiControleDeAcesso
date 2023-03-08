@@ -19,9 +19,8 @@ public class Colaborador {
 
     
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
     @OneToOne
-    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 }

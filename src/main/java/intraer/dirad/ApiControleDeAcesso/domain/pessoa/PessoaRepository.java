@@ -1,5 +1,6 @@
 package intraer.dirad.ApiControleDeAcesso.domain.pessoa;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID>{
 
-    Optional<Pessoa> findByNome(String nome);
+    List<Optional<Pessoa>> findByNome(String nome);
 
     Optional<Pessoa> findByCpf(String cpf);
 

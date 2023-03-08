@@ -26,4 +26,6 @@ public class DadosEmpresa {
         this.contato = empresa.getContato();
         this.endereco = empresa.getEndereco();
     }
+
+
 }

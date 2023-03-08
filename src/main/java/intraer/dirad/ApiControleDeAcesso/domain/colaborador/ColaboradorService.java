@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.Empresa;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -31,17 +32,25 @@ public class ColaboradorService {
     }
 
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
-        var pessoa = repository.getPessoaRepository().findById(dado.getIdpessoa())
-                .orElseThrow(()-> new EntityNotFoundException("Não foi possive encontrar a pessoa com id informado"));
-        var empresa = repository.getEmpresaRepository().findById(dado.getIdEmpresa())
-                .orElseThrow(()-> new EntityNotFoundException("Não foi possive encontrar a empresa com id informado"));
+        var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
+        var empresa = mapper.map(dado.getEmpresa(), Empresa.class);
         var colaborador = new Colaborador();
+
+        var optionalPessoa = repository.getPessoaRepository()
+                .findByCpf(pessoa.getCpf());
+        var optionalEmpresa =repository.getEmpresaRepository()
+                .findByNome(empresa.getNome());
+
+        pessoa = optionalPessoa.isPresent()? optionalPessoa.get(): repository.getPessoaRepository().save(optionalPessoa.get());
+
+        if (optionalPessoa.isPresent()) {pessoa = optionalPessoa.get();}else repository.getPessoaRepository().save(optionalPessoa.get());
+        if (optionalEmpresa.isPresent()) {empresa = optionalEmpresa.get();}else repository.getEmpresaRepository().save(optionalEmpresa.get());
 
         colaborador.setPessoa(pessoa);
         colaborador.setEmpresa(empresa);
         repository.getColaboradorRepository().save(colaborador);
 
-        return mapper.map(colaborador, DadosColaborador.class);
+        return new DadosColaborador(colaborador);
 
     }
 

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -47,10 +48,11 @@ public class PessoaService {
         return mapper.map(pessoa, DadosPessoa.class);
     }
 
-    public DadosPessoa findByNome(String nome) {
-        var pessoa = repository.getPessoaRepository().findByNome(nome)
-                .orElseThrow(() -> new EntityNotFoundException("pessoa não encontrada"));
-        return mapper.map(nome, DadosPessoa.class);
+    public List<DadosPessoa> findByNome(String nome) {
+        var pessoa = repository.getPessoaRepository().findByNome(nome);
+        if (pessoa.isEmpty()) new EntityNotFoundException("pessoa não encontrada");
+
+        return pessoa.stream().map(p-> mapper.map(p.get(), DadosPessoa.class)).collect(Collectors.toList());
     }
 
     public DadosPessoa findByCpf(String cpf) {
@@ -90,7 +92,6 @@ public class PessoaService {
         pessoa.setId(id);
         pessoa = repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
-
     }
 
     public DadosPessoa salvarContatos(UUID id, DadosCadastroContato dado) {
@@ -102,8 +103,6 @@ public class PessoaService {
         pessoa.setContato(contato);
         pessoa = repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
-
-
     }
 
     public DadosPessoa salvarMilitar(UUID id, DadosCadastroMilitar dados) {
