@@ -1,5 +1,6 @@
 package intraer.dirad.ApiControleDeAcesso.domain.militar;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
 
 @Repository
 public interface MilitarRepository extends JpaRepository<Militar, UUID>{
-    
+
+    Optional<Militar> findByPessoaCpf(String cpf);
+
 }

@@ -38,6 +38,12 @@ public class ColaboradorController {
     ) {
         return ResponseEntity.ok().body(colaboradorService.findById(id));
     }
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<DadosColaborador>findByCpf(
+            @PathVariable String cpf
+    ){
+        return ResponseEntity.ok(colaboradorService.findByCpf(cpf));
+    }
 
     @PostMapping
     @Transactional

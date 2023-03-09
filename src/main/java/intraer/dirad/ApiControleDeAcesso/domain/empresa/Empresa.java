@@ -7,12 +7,15 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "empresas")
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Empresa {
 
     

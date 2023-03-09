@@ -4,6 +4,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.PontoDeAcesso.PontoDeAcessoRepos
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.ContatoRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.DependenteRepository;
+import intraer.dirad.ApiControleDeAcesso.domain.efetivo.EfetivoRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.EmpresaRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.MilitarRepository;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.OMRepository;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Repository;
 @Data
 @AllArgsConstructor
 public class RepositorioGlobal {
+    private final EfetivoRepository efetivoRepository;
     private final ColaboradorRepository colaboradorRepository;
     private final ContatoRepository contatoRepository;
     private final DependenteRepository dependenteRepository;

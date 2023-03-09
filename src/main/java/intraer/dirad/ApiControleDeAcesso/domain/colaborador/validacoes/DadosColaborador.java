@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DadosColaborador  {
     private UUID id;
     private DadosPessoa pessoa;

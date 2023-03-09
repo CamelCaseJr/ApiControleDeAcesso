@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.Colaborador;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.dependente.Dependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
@@ -27,18 +28,14 @@ public class Pessoa {
     private String cpf;
     @ManyToOne()
     private Contato contato;
+    @OneToOne()
+    private Colaborador colaborador;
     private String sexo;
-
-
     @OneToMany()
     private List<Secao> setor;
-
-    
-
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Militar militar;
-    
     @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Dependente> dependentes = new ArrayList<>();

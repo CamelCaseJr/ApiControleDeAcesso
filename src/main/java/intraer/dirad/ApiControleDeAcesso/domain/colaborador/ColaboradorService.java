@@ -1,13 +1,16 @@
 package intraer.dirad.ApiControleDeAcesso.domain.colaborador;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
 import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorRepository;
+import intraer.dirad.ApiControleDeAcesso.domain.efetivo.Efetivo;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.Empresa;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,21 +37,22 @@ public class ColaboradorService {
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
         var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
         var empresa = mapper.map(dado.getEmpresa(), Empresa.class);
-        var colaborador = new Colaborador();
+        var colaborador = repository.getColaboradorRepository()
+                .findByPessoaCpf(pessoa.getCpf())
+                .orElseGet(Colaborador::new);
 
-        var optionalPessoa = repository.getPessoaRepository()
-                .findByCpf(pessoa.getCpf());
-        var optionalEmpresa =repository.getEmpresaRepository()
-                .findByNome(empresa.getNome());
+        verificaSeEMilitar(pessoa);
+        verificaSeJaPertenceAoEfetivo(pessoa);
 
-        pessoa = optionalPessoa.isPresent()? optionalPessoa.get(): repository.getPessoaRepository().save(optionalPessoa.get());
+        if(colaborador.getPessoa() == null) {
+            pessoa = getPessoa(pessoa);
+            empresa = getEmpresa(empresa);
 
-        if (optionalPessoa.isPresent()) {pessoa = optionalPessoa.get();}else repository.getPessoaRepository().save(optionalPessoa.get());
-        if (optionalEmpresa.isPresent()) {empresa = optionalEmpresa.get();}else repository.getEmpresaRepository().save(optionalEmpresa.get());
 
-        colaborador.setPessoa(pessoa);
-        colaborador.setEmpresa(empresa);
-        repository.getColaboradorRepository().save(colaborador);
+            colaborador.setPessoa(pessoa);
+            colaborador.setEmpresa(empresa);
+            colaborador = repository.getColaboradorRepository().save(colaborador);
+        }
 
         return new DadosColaborador(colaborador);
 
@@ -79,4 +83,35 @@ public class ColaboradorService {
         return mapper.map(entity, DadosColaborador.class);
     }
 
+    public DadosColaborador findByCpf(String cpf){
+        Optional<Colaborador> optionalColaborador = repository.getColaboradorRepository().findByPessoaCpf(cpf);
+        Colaborador colaborador = optionalColaborador.orElseThrow(() -> new EntityNotFoundException("People not found"));
+        return new DadosColaborador(colaborador);
+
+    }
+
+
+    private Empresa getEmpresa(Empresa empresa) {
+        return repository.getEmpresaRepository()
+                .findByNome(empresa.getNome()).orElseGet(() -> repository.getEmpresaRepository().save(empresa));
+    }
+
+    private Pessoa getPessoa(Pessoa pessoa) {
+        return repository.getPessoaRepository()
+                .findByCpf(pessoa.getCpf())
+                .orElseGet(() -> repository.getPessoaRepository().save(pessoa));
+    }
+
+    private void verificaSeEMilitar(Pessoa pessoa) {
+        var isMilitar = repository.getMilitarRepository()
+                .findByPessoaCpf(pessoa.getCpf())
+                .isPresent();
+        if (isMilitar)throw new EntityExistsException("Esta pessoa é militar");
+    }
+
+    private void verificaSeJaPertenceAoEfetivo(Pessoa pessoa) {
+        var optionalEfetivo = repository.getEfetivoRepository().findByPessoaNome(pessoa.getNome());
+        if (optionalEfetivo.isPresent()) throw new EntityNotFoundException("Esta pessoa já pertence ao efetivo da "
+                + optionalEfetivo.get().getOrganizacaoMilitar().getNome());
+    }
 }
