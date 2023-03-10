@@ -28,6 +28,10 @@ public class ContatoService {
 
     public DadosContato salvar(@Valid DadosCadastroContato dados) {
         Contato contato = mapper.map(dados, Contato.class);
+
+        contato = repository.findByValorDoContato(contato.getValorDoContato())
+                .orElseThrow(()-> new EntityNotFoundException("contato já existe"));
+
         repository.save(contato);
         return mapper.map(contato, DadosContato.class);
     }

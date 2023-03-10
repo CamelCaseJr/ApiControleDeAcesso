@@ -7,7 +7,6 @@ import lombok.Data;
 import java.util.UUID;
 @Data
 public class DadosDeAtualizacaoDependente {
-    UUID id;
     private Pessoa pessoas;
     private Responsavel responsavel ;
 }

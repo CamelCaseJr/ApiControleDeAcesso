@@ -61,27 +61,23 @@ public class PessoaService {
         return mapper.map(cpf, DadosPessoa.class);
     }
 
-    private Pessoa getPessoaPorId(UUID id) {
-        return repository.getPessoaRepository().findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("pessoa não encontrada"));
-    }
-
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
         var pessoa = mapper.map(dados, Pessoa.class);
 
-        boolean present = repository.getPessoaRepository().findByCpf(pessoa.getCpf()).isPresent();
-        if (present) throw new EntityNotFoundException("cpf já está cadastrado");
+        pessoa = repository.getPessoaRepository()
+                .findByCpf(pessoa.getCpf())
+                .orElseThrow(()->new EntityNotFoundException("cpf já está cadastrado"));
 
         repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
     }
+
 
  /*   @Transactional
     public DadosPessoa salvarpessoaFacade(DadosCadastroPessoa dados) {
         var pessoa = pessoaFacade.cria(dados);
         return mapper.map(pessoa, DadosPessoa.class);
     }*/
-
 
     public void delete(UUID id) {
         repository.getPessoaRepository().deleteById(id);
@@ -108,6 +104,7 @@ public class PessoaService {
     public DadosPessoa salvarMilitar(UUID id, DadosCadastroMilitar dados) {
         var pessoa = getPessoaPorId(id);
         var militar = mapper.map(dados, Militar.class);
+
         militar = repository.getMilitarRepository().save(militar);
         pessoa.setMilitar(militar);
         pessoa = repository.getPessoaRepository().save(pessoa);
@@ -118,6 +115,8 @@ public class PessoaService {
     public DadosPessoa criarSecao(UUID id, DadosCadastroSecao dado) {
             var pessoa = getPessoaPorId(id);
             var setor = mapper.map(dado, Secao.class);
+
+            setor = repository.getSecaoRepository().save(setor);
             pessoa.getSetor().add(setor);
             pessoa = repository.getPessoaRepository().save(pessoa);
             return mapper.map(pessoa, DadosPessoa.class);
@@ -136,5 +135,10 @@ public class PessoaService {
         pessoa.getDependentes().add(dependente);
         pessoa = repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);
+    }
+
+    private Pessoa getPessoaPorId(UUID id) {
+        return repository.getPessoaRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("pessoa não encontrada"));
     }
 }

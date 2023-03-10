@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -36,8 +37,17 @@ public class DependenteService {
     public DadosDependente salvar(@Valid DadosCadastroDependente dados) {
 
         Dependente dependente = mapper.map(dados, Dependente.class);
+
+        verificaSeODependenteExiste(dependente);
+
         dependente = repository.save(dependente);
         return mapper.map(dependente, DadosDependente.class);
+    }
+
+    public DadosDependente findByNome(String nome){
+       var dependente = repository.findByPessoaNome(nome)
+               .orElseThrow(() -> new EntityNotFoundException("dependente not found"));
+       return new DadosDependente(dependente);
     }
 
     public DadosDependente atualizar(UUID id, @Valid DadosDeAtualizacaoDependente dado) {
@@ -51,4 +61,9 @@ public class DependenteService {
         repository.deleteById(id);
     }
 
+
+    private void verificaSeODependenteExiste(Dependente dependente) {
+        repository.findByPessoaNome(dependente.getPessoas().getNome())
+                .orElseThrow(()-> new EntityExistsException("Dependente já existe."));
+    }
 }

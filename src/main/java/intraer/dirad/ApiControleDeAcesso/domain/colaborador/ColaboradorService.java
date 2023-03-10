@@ -37,12 +37,14 @@ public class ColaboradorService {
     public DadosColaborador salvar(@Valid DadosCadastroColaborador dado) {
         var pessoa = mapper.map(dado.getPessoa(), Pessoa.class);
         var empresa = mapper.map(dado.getEmpresa(), Empresa.class);
+
+        verificaSeEMilitar(pessoa);
+        verificaSeJaPertenceAoEfetivo(pessoa);
+
         var colaborador = repository.getColaboradorRepository()
                 .findByPessoaCpf(pessoa.getCpf())
                 .orElseGet(Colaborador::new);
 
-        verificaSeEMilitar(pessoa);
-        verificaSeJaPertenceAoEfetivo(pessoa);
 
         if(colaborador.getPessoa() == null) {
             pessoa = getPessoa(pessoa);
