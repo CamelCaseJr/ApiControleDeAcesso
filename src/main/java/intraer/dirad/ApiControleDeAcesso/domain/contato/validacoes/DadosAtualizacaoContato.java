@@ -8,10 +8,8 @@ import lombok.Data;
 import java.util.UUID;
 @Data
 public class DadosAtualizacaoContato {
-    private UUID id;
-    @NotBlank
     private TipoContato tipo;
-    @NotBlank
+
     @ValidarTelefone
     private String valorDoContato;
     

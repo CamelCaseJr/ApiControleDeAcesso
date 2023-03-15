@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class DadosAtualizacaoPontoDeAcesso{
-    UUID id;
     String nome;
     List<Secao> secao;
     List<DispositivoDeAcesso> dispositivosDeAcesso;

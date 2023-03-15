@@ -9,7 +9,6 @@ import lombok.Data;
 
 @Data
 public class DadosAtualizacaoColaborador {
-    UUID id;
     DadosCadastroPessoa pessoa;
     DadosCadastroEmpresa empresa;
 }

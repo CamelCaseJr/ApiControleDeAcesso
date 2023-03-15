@@ -6,13 +6,20 @@ import java.util.UUID;
 import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.DispositivoDeAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.PermissaoGerenteLocalAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 public class DadosCadastroPontoDeAcesso{
-    UUID id;
+
+    @NotBlank
     String nome;
+    @NotNull
     List<Secao> secao;
+    @NotNull
     List<DispositivoDeAcesso> dispositivosDeAcesso;
+    @NotNull
     List<PermissaoGerenteLocalAcesso> permissoesGerentesLocaaisAcessos;
 }

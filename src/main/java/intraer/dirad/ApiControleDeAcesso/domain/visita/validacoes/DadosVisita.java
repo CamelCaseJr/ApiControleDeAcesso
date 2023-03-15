@@ -10,9 +10,14 @@ import intraer.dirad.ApiControleDeAcesso.domain.evento.Evento;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.domain.visita.Visita;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosVisita {
     private UUID id;
 

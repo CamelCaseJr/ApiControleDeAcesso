@@ -13,6 +13,7 @@ import intraer.dirad.ApiControleDeAcesso.facade.PessoaFacade;
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
 import intraer.dirad.ApiControleDeAcesso.domain.RepositorioGlobal;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -64,9 +65,9 @@ public class PessoaService {
     public DadosPessoa salvar(DadosCadastroPessoa dados) {
         var pessoa = mapper.map(dados, Pessoa.class);
 
-        pessoa = repository.getPessoaRepository()
-                .findByCpf(pessoa.getCpf())
-                .orElseThrow(()->new EntityNotFoundException("cpf já está cadastrado"));
+        var isPessoa = repository.getPessoaRepository()
+                .findByCpf(pessoa.getCpf()).isPresent();
+        if (isPessoa) throw new EntityNotFoundException("cpf já está cadastrado");
 
         repository.getPessoaRepository().save(pessoa);
         return mapper.map(pessoa, DadosPessoa.class);

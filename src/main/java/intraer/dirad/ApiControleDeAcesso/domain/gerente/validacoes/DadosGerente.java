@@ -3,12 +3,16 @@ package intraer.dirad.ApiControleDeAcesso.domain.gerente.validacoes;
 import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.PermissaoGerenteLocalAcesso;
 import intraer.dirad.ApiControleDeAcesso.domain.gerente.Gerente;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosGerente {
     //@Column(columnDefinition = "varchar(36)")
     private UUID id;

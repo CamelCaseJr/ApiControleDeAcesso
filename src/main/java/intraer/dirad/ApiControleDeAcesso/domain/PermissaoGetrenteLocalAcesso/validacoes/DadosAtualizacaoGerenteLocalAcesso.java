@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Data
 public class DadosAtualizacaoGerenteLocalAcesso {
-    UUID id;
     Gerente gerente ;
     List<PontoDeAcesso> localDeAcesso;
     List<Permissoes> permissoes;

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 public class DadosCadastroDependente
-{    UUID id;
+{
     private Pessoa pessoas;
     private Responsavel responsavel ;
     

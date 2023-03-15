@@ -4,6 +4,7 @@ import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.Empresa;
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DadosEmpresa {
 
     private UUID id;

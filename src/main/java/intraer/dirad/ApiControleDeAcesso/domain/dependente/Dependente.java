@@ -19,7 +19,7 @@ public class Dependente {
     private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Pessoa pessoas;
+    private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "responsavel_id")

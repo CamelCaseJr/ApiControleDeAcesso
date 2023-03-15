@@ -6,7 +6,7 @@ import java.sql.Blob;
 import java.util.UUID;
 @Data
 public class DadosAtualizacaoDispositivoDeAcesso{
-    UUID id;
+
     private String nome;
     private String tipo;
     private Blob metadata;

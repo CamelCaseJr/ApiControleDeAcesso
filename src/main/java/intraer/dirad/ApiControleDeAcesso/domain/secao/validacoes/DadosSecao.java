@@ -3,12 +3,16 @@ package intraer.dirad.ApiControleDeAcesso.domain.secao.validacoes;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.domain.responsavel.Responsavel;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosSecao {
     //@Column(columnDefinition = "varchar(36)")
 

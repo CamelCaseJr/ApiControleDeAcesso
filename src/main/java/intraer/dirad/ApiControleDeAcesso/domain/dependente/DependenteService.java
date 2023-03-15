@@ -63,7 +63,7 @@ public class DependenteService {
 
 
     private void verificaSeODependenteExiste(Dependente dependente) {
-        repository.findByPessoaNome(dependente.getPessoas().getNome())
+        repository.findByPessoaNome(dependente.getPessoa().getNome())
                 .orElseThrow(()-> new EntityExistsException("Dependente já existe."));
     }
 }

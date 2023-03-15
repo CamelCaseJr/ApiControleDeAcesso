@@ -1,10 +1,14 @@
 package intraer.dirad.ApiControleDeAcesso.domain.endereco.validacoes;
 
 import intraer.dirad.ApiControleDeAcesso.domain.endereco.Endereco;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosEndereco {
     //@Column(columnDefinition = "varchar(36)")
     private UUID id;

@@ -1,6 +1,7 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
 import intraer.dirad.ApiControleDeAcesso.domain.dispositivosDeAcesso.validacoes.DadosDispositivosDeAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosAtualizacaoEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosCadastroEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.EmpresaService;
@@ -54,7 +55,7 @@ public class EmpresaController {
     @PutMapping(value="/{id}")
     @Transactional
     @CacheEvict(value = "lista-empresas", allEntries = true)
-    public ResponseEntity<DadosEmpresa> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosCadastroEmpresa dado) {
+    public ResponseEntity<DadosEmpresa> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoEmpresa dado) {
 
         return ResponseEntity.ok().body(service.atualizar(id,dado));
     }

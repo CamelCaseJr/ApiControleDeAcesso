@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
@@ -13,9 +14,12 @@ import intraer.dirad.ApiControleDeAcesso.domain.dependente.Dependente;
 import intraer.dirad.ApiControleDeAcesso.domain.militar.Militar;
 import intraer.dirad.ApiControleDeAcesso.domain.pessoa.Pessoa;
 import intraer.dirad.ApiControleDeAcesso.domain.secao.Secao;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosPessoa  {
 
 
@@ -41,6 +45,4 @@ public class DadosPessoa  {
         this.dependentes = pessoa.getDependentes();
     }
 
-    public DadosPessoa() {
-    }
 }

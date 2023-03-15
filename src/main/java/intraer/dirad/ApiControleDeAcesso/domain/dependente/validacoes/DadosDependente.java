@@ -6,10 +6,14 @@ import intraer.dirad.ApiControleDeAcesso.domain.responsavel.Responsavel;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosDependente {
     UUID id;
     private Pessoa pessoa;
@@ -18,8 +22,8 @@ public class DadosDependente {
 
     public DadosDependente(Dependente dependente) {
         this.id = dependente.getId();
-        this.pessoa = dependente.getPessoas();
-        this.nome = dependente.getPessoas().getNome();
+        this.pessoa = dependente.getPessoa();
+        this.nome = dependente.getPessoa().getNome();
         this.responsavel = dependente.getResponsavel();
     }
 }

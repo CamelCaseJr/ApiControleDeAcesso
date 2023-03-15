@@ -4,9 +4,13 @@ import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.contato.Contato;
 import intraer.dirad.ApiControleDeAcesso.domain.enums.TipoContato;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DadosContato{
     private UUID id;
     private TipoContato tipo;

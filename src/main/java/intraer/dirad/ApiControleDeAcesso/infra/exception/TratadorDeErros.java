@@ -1,6 +1,7 @@
 package intraer.dirad.ApiControleDeAcesso.infra.exception;
 
 import intraer.dirad.ApiControleDeAcesso.domain.ValidacaoException;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,8 +13,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class TratadorDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarErro404() {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity tratarErro404(EntityNotFoundException ex) {
+        var erros = ex.getMessage();
+
+        return ResponseEntity.badRequest().body(erros);
+    }
+    @ExceptionHandler(EntityExistsException.class)
+    public ResponseEntity tratarErro500(EntityExistsException ex) {
+        var erros = ex.getMessage();
+
+        return ResponseEntity.badRequest().body(erros);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

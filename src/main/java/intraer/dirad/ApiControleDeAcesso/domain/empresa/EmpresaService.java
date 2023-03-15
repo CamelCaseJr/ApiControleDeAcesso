@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosAtualizacaoEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosCadastroEmpresa;
 import intraer.dirad.ApiControleDeAcesso.domain.empresa.validacoes.DadosEmpresa;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class EmpresaService {
         return mapper.map(empresa, DadosEmpresa.class);
     }
 
-    public DadosEmpresa atualizar(UUID id, @Valid DadosCadastroEmpresa dado) {
+    public DadosEmpresa atualizar(UUID id, @Valid DadosAtualizacaoEmpresa dado) {
         var empresa = mapper.map(dado,Empresa.class);
         empresa = repository.save(empresa);
         return mapper.map(empresa, DadosEmpresa.class);
