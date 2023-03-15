@@ -3,6 +3,12 @@ package intraer.dirad.ApiControleDeAcesso.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosOrganizacaoMilitar;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPermissaoGerenteLocalAcesso.DadosAtualizacaoGerenteLocalAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPermissaoGerenteLocalAcesso.DadosCadastroGerenteLocalAcesso;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoPermissaoGerenteLocalAcesso.DadosGerenteLocalAcesso;
-import intraer.dirad.ApiControleDeAcesso.services.PermissaoGerenteLocalService;
+import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.validacoes.DadosAtualizacaoGerenteLocalAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.validacoes.DadosCadastroGerenteLocalAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.validacoes.DadosGerenteLocalAcesso;
+import intraer.dirad.ApiControleDeAcesso.domain.PermissaoGetrenteLocalAcesso.PermissaoGerenteLocalService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -30,11 +36,12 @@ public class PermissaoGerenteLocalAcessoController {
     private final PermissaoGerenteLocalService permissaoGerenteLocalService;
 
     @GetMapping
-    public ResponseEntity<List<DadosGerenteLocalAcesso>> listarTodos() {
-        return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll());
+    @Cacheable(value = "lista-permissoes-gerente-local")
+    public ResponseEntity<Page<DadosGerenteLocalAcesso>> findAll( Pageable paginacao) {
+        return ResponseEntity.ok().body(permissaoGerenteLocalService.findAll(paginacao));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosGerenteLocalAcesso> contatoId(
+    public ResponseEntity<DadosGerenteLocalAcesso> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(permissaoGerenteLocalService.findById(id));
@@ -42,17 +49,19 @@ public class PermissaoGerenteLocalAcessoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity<DadosGerenteLocalAcesso> cadastrar(
         @RequestBody @Valid DadosCadastroGerenteLocalAcesso dados, UriComponentsBuilder uriBuilder
     ) {
         var militar = permissaoGerenteLocalService.salvar(dados);
-        var uri = uriBuilder.path("/contato/{id}").buildAndExpand(militar.getId()).toUri();
+        var uri = uriBuilder.path("/permissoes-gerente-local/{id}").buildAndExpand(militar.getId()).toUri();
         return ResponseEntity.created(uri).body(militar);
         
     }
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity<DadosGerenteLocalAcesso> atualizar(@PathVariable UUID id, @RequestBody @Valid DadosAtualizacaoGerenteLocalAcesso dado) {
     
         return ResponseEntity.ok().body(permissaoGerenteLocalService.atualizar(id,dado));
@@ -60,6 +69,7 @@ public class PermissaoGerenteLocalAcessoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-permissoes-gerente-local",allEntries = true)
     public ResponseEntity excluir(@PathVariable UUID id) {
         permissaoGerenteLocalService.delete(id);
         return ResponseEntity.noContent().build();

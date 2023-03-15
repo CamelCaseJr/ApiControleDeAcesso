@@ -1,11 +1,17 @@
 package intraer.dirad.ApiControleDeAcesso.controllers;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosAtualizacaoColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosCadastroColaborador;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoColaborador.DadosColaborador;
-import intraer.dirad.ApiControleDeAcesso.services.ColaboradorService;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosAtualizacaoColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosCadastroColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosColaborador;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.ColaboradorService;
+import intraer.dirad.ApiControleDeAcesso.domain.pessoa.validacoes.DadosPessoa;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,29 +28,38 @@ public class ColaboradorController {
     
     private final ColaboradorService colaboradorService;
     @GetMapping
-    public ResponseEntity<List<DadosColaborador>> listarTodos() {
-        return ResponseEntity.ok().body(colaboradorService.findAll());
+    @Cacheable(value = "lista-de-colaboradores")
+    public ResponseEntity<Page<DadosColaborador>> findAll( Pageable paginacao) {
+        return ResponseEntity.ok().body(colaboradorService.findAll(paginacao));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DadosColaborador> contatoId(
+    public ResponseEntity<DadosColaborador> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(colaboradorService.findById(id));
     }
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<DadosColaborador>findByCpf(
+            @PathVariable String cpf
+    ){
+        return ResponseEntity.ok(colaboradorService.findByCpf(cpf));
+    }
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity<DadosColaborador> cadastrar(
         @RequestBody @Valid DadosCadastroColaborador dados, UriComponentsBuilder uriBuilder
     ) {
         DadosColaborador colaborador = colaboradorService.salvar(dados);
-        var uri = uriBuilder.path("/colaborador/{id}").buildAndExpand(colaborador.getId()).toUri();
+        var uri = uriBuilder.path("/colaboradores/{id}").buildAndExpand(colaborador.getId()).toUri();
         return ResponseEntity.created(uri).body(colaborador);
         
     }
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity<DadosColaborador> atualizar(
             @PathVariable UUID id,
             @RequestBody @Valid DadosAtualizacaoColaborador dado,
@@ -55,6 +70,7 @@ public class ColaboradorController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-de-colaboradores", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         colaboradorService.delete(id);
         return ResponseEntity.noContent().build();

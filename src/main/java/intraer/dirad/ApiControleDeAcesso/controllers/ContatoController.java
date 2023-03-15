@@ -3,6 +3,12 @@ package intraer.dirad.ApiControleDeAcesso.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.validacoes.DadosColaborador;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosAtualizacaoContato;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosCadastroContato;
-import intraer.dirad.ApiControleDeAcesso.Dtos.DtoContato.DadosContato;
-import intraer.dirad.ApiControleDeAcesso.services.ContatoService;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosAtualizacaoContato;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosCadastroContato;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.validacoes.DadosContato;
+import intraer.dirad.ApiControleDeAcesso.domain.contato.ContatoService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,11 +37,13 @@ public class ContatoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosContato>> listarTodos() {
-        return ResponseEntity.ok().body(contatoService.findAll());
+    @Cacheable(value = "lista-contatos")
+    public ResponseEntity<Page<DadosContato>> findAll( Pageable paginacao) {
+        return ResponseEntity.ok().body(contatoService.findAll(paginacao));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<DadosContato> contatoId(
+    public ResponseEntity<DadosContato> findById(
         @PathVariable UUID id
     ) {
         return ResponseEntity.ok().body(contatoService.findById(id));
@@ -43,6 +51,7 @@ public class ContatoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity<DadosContato> cadastrar(
         @RequestBody @Valid DadosCadastroContato dados, UriComponentsBuilder uriBuilder
     ) {
@@ -54,6 +63,7 @@ public class ContatoController {
 
     @PutMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity<DadosContato> atualizar(
             @PathVariable UUID id,
             @RequestBody @Valid DadosAtualizacaoContato dado,
@@ -65,6 +75,7 @@ public class ContatoController {
 
     @DeleteMapping(value="/{id}")
     @Transactional
+    @CacheEvict(value = "lista-contatos", allEntries = true )
     public ResponseEntity excluir(@PathVariable UUID id) {
         contatoService.delete(id);
         return ResponseEntity.noContent().build();
