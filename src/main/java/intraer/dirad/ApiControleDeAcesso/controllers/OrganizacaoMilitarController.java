@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosCadastroOrganizacaoMilitar;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -51,11 +52,11 @@ public class OrganizacaoMilitarController {
     @Transactional
     @CacheEvict(value = "listaOrganizacoes-militares",allEntries = true)
     public ResponseEntity<DadosOrganizacaoMilitar> cadastrar(
-        @RequestBody @Valid DadosCadastroMilitar dados, UriComponentsBuilder uriBuilder
+        @RequestBody @Valid DadosCadastroOrganizacaoMilitar dados, UriComponentsBuilder uriBuilder
     ) {
-        var militar = organizacaoMilitarService.salvar(dados);
-        var uri = uriBuilder.path("/organizacoes-militares/{id}").buildAndExpand(militar.getId()).toUri();
-        return ResponseEntity.created(uri).body(militar);
+        var organizacaoMilitar = organizacaoMilitarService.salvar(dados);
+        var uri = uriBuilder.path("/organizacoes-militares/{id}").buildAndExpand(organizacaoMilitar.getId()).toUri();
+        return ResponseEntity.created(uri).body(organizacaoMilitar);
         
     }
 

@@ -2,6 +2,7 @@ package intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar;
 
 import intraer.dirad.ApiControleDeAcesso.domain.militar.validacoes.DadosCadastroMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosAtualizacaoOrganizacaoMilitar;
+import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosCadastroOrganizacaoMilitar;
 import intraer.dirad.ApiControleDeAcesso.domain.organizacaoMilitar.validacoes.DadosOrganizacaoMilitar;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class OrganizacaoMilitarService {
         return mapper.map(organMilitar, DadosOrganizacaoMilitar.class);
     }
 
-    public DadosOrganizacaoMilitar salvar(@Valid DadosCadastroMilitar dados) {
+    public DadosOrganizacaoMilitar salvar(@Valid DadosCadastroOrganizacaoMilitar dados) {
         var organMilitar = mapper.map(dados, OrganizacaoMilitar.class);
         repository.save(organMilitar);
         return mapper.map(organMilitar, DadosOrganizacaoMilitar.class);

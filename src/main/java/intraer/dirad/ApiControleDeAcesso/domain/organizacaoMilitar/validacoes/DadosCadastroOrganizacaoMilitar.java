@@ -6,7 +6,6 @@ import lombok.Data;
 import java.util.UUID;
 @Data
 public class DadosCadastroOrganizacaoMilitar{
-    @NotBlank
     String nome;
     @NotBlank
     String sigla;

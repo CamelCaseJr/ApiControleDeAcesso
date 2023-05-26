@@ -5,12 +5,12 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import intraer.dirad.ApiControleDeAcesso.domain.efetivo.Efetivo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Table(name = "organizacoes_militares")
 @Data
-
 public class OrganizacaoMilitar {
     
     

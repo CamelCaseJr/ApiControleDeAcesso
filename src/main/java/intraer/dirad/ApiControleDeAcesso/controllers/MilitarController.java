@@ -31,6 +31,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/militares")
 @AllArgsConstructor
+@CacheEvict(value = "listaDeMilitares", allEntries = true )
 public class MilitarController {
 
     private final MilitarService militarService;

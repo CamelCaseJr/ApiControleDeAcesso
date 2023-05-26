@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import intraer.dirad.ApiControleDeAcesso.domain.colaborador.Colaborador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -28,6 +29,7 @@ public class DadosPessoa  {
     private String cpf;
 
     private Contato contato;
+    private Colaborador colaborador;
     private String sexo;
     private List<Secao> setor;
     private Militar militar;
@@ -43,6 +45,20 @@ public class DadosPessoa  {
         this.setor = pessoa.getSetor();
         this.militar = pessoa.getMilitar();
         this.dependentes = pessoa.getDependentes();
+        this.colaborador = pessoa.getColaborador();
+    }
+
+    public static Pessoa convertPessoa(DadosPessoa dadosPessoa){
+        var pessoa = new Pessoa();
+        pessoa.setId(dadosPessoa.getId());
+        pessoa.setNome(dadosPessoa.getNome());
+        pessoa.setCpf(dadosPessoa.getCpf());
+        pessoa.setColaborador(dadosPessoa.getColaborador());
+        pessoa.setContato(dadosPessoa.getContato());
+        pessoa.setSexo(dadosPessoa.getSexo());
+        pessoa.setSetor(dadosPessoa.getSetor());
+        pessoa.setDependentes(dadosPessoa.getDependentes());
+        return pessoa;
     }
 
 }

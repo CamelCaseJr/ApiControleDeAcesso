@@ -27,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/pessoas")
+@CrossOrigin(origins = "http://localhost:8081")
 public class PessoaController {
 
 
